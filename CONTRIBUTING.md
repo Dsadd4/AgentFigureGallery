@@ -19,6 +19,7 @@ agent query -> gallery display -> human select -> agent action
 Run:
 
 ```bash
+agentfiguregallery doctor
 python scripts/check_private_paths.py --root .
 python scripts/download_assets.py --pack minimal --dry-run
 agentfiguregallery query --plot-type heatmap_matrix --json
@@ -26,3 +27,10 @@ agentfiguregallery query --plot-type heatmap_matrix --json
 
 Do not commit tokens, local private paths, raw upstream repository mirrors, or large generated outputs.
 
+## Gallery Expansion Checklist
+
+- Every accepted candidate has a visible preview image.
+- Every accepted candidate has a stable `candidate_id`.
+- Source repository, license, and attribution metadata are preserved when available.
+- Bad references should be rejected instead of silently deleted when they carry useful preference signal.
+- Full-public archives should stay outside the Python wheel and be distributed through manifests.

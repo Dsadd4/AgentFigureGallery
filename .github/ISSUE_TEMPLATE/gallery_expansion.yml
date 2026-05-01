@@ -1,0 +1,54 @@
+name: Gallery Expansion
+description: Propose public sources or plot types to expand the reference gallery.
+title: "[Gallery]: "
+labels: ["gallery-expansion"]
+body:
+  - type: textarea
+    id: sources
+    attributes:
+      label: Public source candidates
+      description: Link repositories, papers, galleries, or figure reproduction sources.
+      placeholder: |
+        - https://github.com/...
+        - https://...
+    validations:
+      required: true
+  - type: dropdown
+    id: plot_type
+    attributes:
+      label: Primary plot type
+      options:
+        - embedding_plot
+        - heatmap_matrix
+        - multi_panel_figure
+        - microscopy_panel
+        - box_violin_distribution
+        - scatter_plot
+        - line_chart
+        - bar_chart
+        - benchmark_performance
+        - spatial_map
+        - other
+    validations:
+      required: true
+  - type: checkboxes
+    id: gates
+    attributes:
+      label: Quality gates
+      options:
+        - label: The source is public.
+          required: true
+        - label: The source has visible figures or enough code/data to render previews.
+          required: true
+        - label: The source has usable attribution or license metadata.
+          required: true
+        - label: The source does not require private local paths, tokens, or private repositories.
+          required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Why is this useful for Nature/Cell/Science-style figure guidance?
+    validations:
+      required: false
+

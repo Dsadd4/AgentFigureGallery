@@ -1,0 +1,27 @@
+name: Feature Request
+description: Suggest an improvement to the gallery, CLI, agent skill, ranking, or packaging.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case
+      description: What should AgentFigureGallery help a human or agent do?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the command, UI, ranking, metadata, or agent workflow change.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation
+      description: How would we know this is working?
+    validations:
+      required: false
+

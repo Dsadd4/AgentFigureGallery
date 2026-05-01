@@ -1,0 +1,39 @@
+name: Bug Report
+description: Report a broken command, gallery behavior, preference state, or setup flow.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the behavior and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: Include commands, plot type, session ID, and browser URL if relevant.
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: agentfiguregallery doctor
+      description: Paste the output of `agentfiguregallery doctor`.
+      render: text
+    validations:
+      required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, install method, and whether you use the minimal or full-public pack.
+    validations:
+      required: false
+

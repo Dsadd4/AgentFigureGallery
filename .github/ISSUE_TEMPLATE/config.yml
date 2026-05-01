@@ -1,0 +1,9 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Agent Quickstart
+    url: https://github.com/Dsadd4/AgentFigureGallery/blob/main/docs/AGENT_QUICKSTART.md
+    about: Start here if you want your coding agent to use AgentFigureGallery.
+  - name: Discovery Playbook
+    url: https://github.com/Dsadd4/AgentFigureGallery/blob/main/docs/DISCOVERY_PLAYBOOK.md
+    about: Public launch, sharing copy, and roadmap context.
+

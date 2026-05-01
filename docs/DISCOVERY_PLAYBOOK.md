@@ -52,3 +52,4 @@ GitHub: https://github.com/Dsadd4/AgentFigureGallery
 - Hugging Face dataset card is synced.
 - GitHub Actions is green.
 - One end-to-end example is linked from the README.
+- Issue templates and PR template are available for contributors.
