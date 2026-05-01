@@ -16,6 +16,7 @@ cd AgentFigureGallery
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .
+agentfiguregallery doctor
 agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve
 ```
 

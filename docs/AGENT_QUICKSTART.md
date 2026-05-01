@@ -14,6 +14,7 @@ Read skills/agent-figure-gallery/SKILL.md before acting.
 
 ```bash
 export AGENT_FIGURE_GALLERY_ROOT=/path/to/AgentFigureGallery
+agentfiguregallery doctor
 agentfiguregallery query --task "Nature-style embedding map for cell atlas"
 agentfiguregallery gallery --plot-type embedding_plot --task "Nature-style embedding map for cell atlas" --limit 50 --serve
 ```

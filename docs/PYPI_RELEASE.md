@@ -41,11 +41,13 @@ After publishing:
 ```bash
 python -m pip install agentfiguregallery
 agentfiguregallery --help
+agentfiguregallery doctor
 ```
 
 ## Preflight
 
 - `agentfiguregallery query` works with `AGENT_FIGURE_GALLERY_ROOT`.
+- `agentfiguregallery doctor` reports KB root, candidate counts, skill path, and next commands.
 - `agentfiguregallery prefer` writes preferences.
 - `agentfiguregallery bundle` writes `reference_bundle.json`.
 - README still teaches the clone workflow until standalone package resources are finalized.

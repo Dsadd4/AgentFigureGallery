@@ -5,12 +5,16 @@ import json
 import os
 from pathlib import Path
 
+from . import __version__
 from .server import export_bundle, generate_session, resolve_session, run_server, update_preference
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="agentfiguregallery")
     subparsers = parser.add_subparsers(dest="command", required=True)
+
+    doctor = subparsers.add_parser("doctor", help="Check local KB readiness and print next commands.")
+    doctor.add_argument("--json", action="store_true")
 
     query = subparsers.add_parser("query", help="Resolve a task or plot type to available candidate counts.")
     query.add_argument("--task", default="")
@@ -81,6 +85,64 @@ def load_index() -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def plot_type_counts(candidates: list[dict]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for item in candidates:
+        key = item.get("plot_type") or item.get("primary_plot_type") or "unknown"
+        counts[key] = counts.get(key, 0) + 1
+    return dict(sorted(counts.items()))
+
+
+def command_doctor(args: argparse.Namespace) -> int:
+    kb_root = root()
+    index_path = kb_root / "data" / "reference_candidate_index.json"
+    skill_path = kb_root / "skills" / "agent-figure-gallery" / "SKILL.md"
+    frontend_path = kb_root / "frontend" / "reference_gallery" / "index.html"
+    manifest_path = kb_root / "manifests" / "resource_manifest.json"
+    hf_manifest_url = "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/resource_manifest.json"
+
+    index = load_index()
+    candidates = index.get("candidates", [])
+    counts = plot_type_counts(candidates)
+    checks = {
+        "candidate_index": index_path.exists(),
+        "skill": skill_path.exists(),
+        "frontend": frontend_path.exists(),
+        "full_public_manifest": manifest_path.exists(),
+    }
+    payload = {
+        "version": __version__,
+        "root": str(kb_root),
+        "ok": all(checks.values()) and bool(candidates),
+        "checks": checks,
+        "candidate_total": len(candidates),
+        "plot_type_counts": counts,
+        "agent_skill": str(skill_path),
+        "recommended_commands": [
+            "agentfiguregallery query --task \"Nature-style embedding map for cell atlas\"",
+            "agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve",
+            f"agentfiguregallery setup --pack full-public --manifest-url {hf_manifest_url}",
+        ],
+    }
+    if args.json:
+        print(json.dumps(payload, indent=2, ensure_ascii=True))
+    else:
+        print(f"AgentFigureGallery {payload['version']}")
+        print(f"root: {payload['root']}")
+        for name, passed in checks.items():
+            print(f"{'OK' if passed else 'MISSING'} {name}")
+        print(f"candidate_total: {payload['candidate_total']}")
+        if counts:
+            print("plot_types:")
+            for plot_type, count in counts.items():
+                print(f"  {plot_type}: {count}")
+        print(f"agent_skill: {payload['agent_skill']}")
+        print("next:")
+        for command in payload["recommended_commands"]:
+            print(f"  {command}")
+    return 0 if payload["ok"] else 1
+
+
 def infer_plot_type(task: str, explicit: str) -> str:
     if explicit:
         return explicit
@@ -107,10 +169,7 @@ def command_query(args: argparse.Namespace) -> int:
     index = load_index()
     plot_type = infer_plot_type(args.task, args.plot_type)
     candidates = index.get("candidates", [])
-    counts: dict[str, int] = {}
-    for item in candidates:
-        key = item.get("plot_type") or item.get("primary_plot_type") or "unknown"
-        counts[key] = counts.get(key, 0) + 1
+    counts = plot_type_counts(candidates)
     payload = {
         "resolved": {"plot_type": plot_type},
         "available_candidates": counts.get(plot_type, 0),
@@ -218,6 +277,8 @@ def command_setup(args: argparse.Namespace) -> int:
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
+    if args.command == "doctor":
+        return command_doctor(args)
     if args.command == "query":
         return command_query(args)
     if args.command == "gallery":
