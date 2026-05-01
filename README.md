@@ -112,6 +112,7 @@ Completed proof point:
 - `ExtendAgent/`: instructions for agents that expand the gallery.
 - `docs/AGENT_QUICKSTART.md`: minimal instructions for coding agents.
 - `docs/DISCOVERY_PLAYBOOK.md`: launch and star-growth checklist.
+- `docs/releases/v0.1.0.md`: first public release notes.
 - `docs/HF_SYNC.md`: Hugging Face dataset card and asset sync commands.
 - `docs/PYPI_RELEASE.md`: Python package release path.
 - `docs/HF_DATASET_CARD.md`: Hugging Face dataset card draft.

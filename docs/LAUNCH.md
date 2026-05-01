@@ -65,6 +65,7 @@ Use `docs/assets/agentfiguregallery-social-preview.png` as the GitHub repository
 - Demo GIF is visible above the fold.
 - GitHub social preview image is uploaded.
 - GitHub topics are configured.
+- v0.1.0 release notes are published from `docs/releases/v0.1.0.md`.
 - Full-public pack has remote validation.
 - Hugging Face dataset card can be synced with `python scripts/upload_full_public_to_hf.py --card-only`.
 - Faster mirror for China/Huawei Cloud deployments is still recommended before claiming frictionless full-public setup everywhere.
