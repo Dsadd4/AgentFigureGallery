@@ -1,0 +1,61 @@
+cell_id,x,y,cell_type,condition,pseudotime
+C001,-4.45,-0.80,Naive T,reference,0.08
+C002,-4.12,-0.42,Naive T,reference,0.11
+C003,-3.88,-1.05,Naive T,reference,0.16
+C004,-3.62,-0.64,Naive T,reference,0.19
+C005,-3.46,-1.26,Naive T,disease,0.22
+C006,-3.18,-0.33,Naive T,reference,0.24
+C007,-3.02,-0.92,Naive T,disease,0.27
+C008,-2.78,-0.47,Naive T,reference,0.30
+C009,-2.55,-1.12,Naive T,disease,0.34
+C010,-2.36,-0.71,Naive T,reference,0.37
+C011,-1.90,0.05,Effector T,reference,0.42
+C012,-1.62,0.46,Effector T,reference,0.45
+C013,-1.33,-0.18,Effector T,disease,0.48
+C014,-1.05,0.28,Effector T,reference,0.50
+C015,-0.78,-0.36,Effector T,disease,0.54
+C016,-0.54,0.18,Effector T,reference,0.56
+C017,-0.22,-0.21,Effector T,disease,0.60
+C018,0.08,0.36,Effector T,reference,0.63
+C019,0.36,-0.04,Effector T,disease,0.66
+C020,0.68,0.24,Effector T,disease,0.69
+C021,-2.76,2.70,B cell,reference,0.18
+C022,-2.48,3.12,B cell,reference,0.21
+C023,-2.20,2.42,B cell,reference,0.25
+C024,-1.92,2.88,B cell,disease,0.28
+C025,-1.66,3.26,B cell,reference,0.30
+C026,-1.38,2.64,B cell,disease,0.34
+C027,-1.12,3.02,B cell,reference,0.38
+C028,-0.86,2.52,B cell,reference,0.41
+C029,-0.58,2.92,B cell,disease,0.44
+C030,-0.30,2.36,B cell,reference,0.46
+C031,1.02,-1.10,NK cell,reference,0.32
+C032,1.30,-1.56,NK cell,reference,0.35
+C033,1.58,-0.86,NK cell,disease,0.40
+C034,1.86,-1.30,NK cell,reference,0.43
+C035,2.14,-0.68,NK cell,disease,0.47
+C036,2.42,-1.16,NK cell,reference,0.50
+C037,2.70,-0.54,NK cell,disease,0.54
+C038,2.98,-0.98,NK cell,disease,0.58
+C039,3.24,-0.36,NK cell,reference,0.62
+C040,3.52,-0.78,NK cell,disease,0.66
+C041,1.10,1.18,Monocyte,reference,0.50
+C042,1.38,1.62,Monocyte,disease,0.54
+C043,1.68,0.92,Monocyte,reference,0.57
+C044,1.96,1.34,Monocyte,disease,0.61
+C045,2.28,0.70,Monocyte,disease,0.64
+C046,2.58,1.12,Monocyte,reference,0.68
+C047,2.90,0.50,Monocyte,disease,0.72
+C048,3.18,0.94,Monocyte,disease,0.76
+C049,3.48,0.30,Monocyte,reference,0.80
+C050,3.82,0.70,Monocyte,disease,0.84
+C051,2.22,2.66,Dendritic,reference,0.58
+C052,2.50,3.08,Dendritic,reference,0.61
+C053,2.80,2.34,Dendritic,disease,0.65
+C054,3.08,2.78,Dendritic,disease,0.69
+C055,3.38,2.12,Dendritic,reference,0.72
+C056,3.66,2.56,Dendritic,disease,0.76
+C057,3.96,1.96,Dendritic,disease,0.80
+C058,4.24,2.36,Dendritic,reference,0.84
+C059,4.54,1.74,Dendritic,disease,0.88
+C060,4.84,2.10,Dendritic,disease,0.92

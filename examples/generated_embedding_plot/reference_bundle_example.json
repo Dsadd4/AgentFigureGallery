@@ -1,0 +1,24 @@
+{
+  "session_id": "example_embedding_bundle",
+  "resolved": {
+    "plot_type": "embedding_plot",
+    "task": "Nature-style embedding map for a single-cell atlas"
+  },
+  "selected_references": [
+    {
+      "slot_id": "E02",
+      "candidate_id": "EMB-3928F88AD7",
+      "plot_type": "embedding_plot",
+      "source_repo": "berenslab/mini-atlas",
+      "guidance": "Use compact UMAP clusters, direct cell-type labels, and restrained color accents."
+    },
+    {
+      "slot_id": "E04",
+      "candidate_id": "EMB-FE34642DA4",
+      "plot_type": "embedding_plot",
+      "source_repo": "berenslab/mini-atlas",
+      "guidance": "Keep dense points readable with light background context and highlighted state outlines."
+    }
+  ],
+  "upstream_agent_prompt": "Use selected_references as visual guidance before writing or revising plotting code. Preserve candidate IDs in notes and figure metadata."
+}

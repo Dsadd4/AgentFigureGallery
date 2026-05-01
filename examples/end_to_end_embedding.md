@@ -45,3 +45,8 @@ outputs/reference_sessions/<session_id>/export_bundle/reference_bundle.json
 
 The downstream agent should use the selected references as visual and code guidance, preserve candidate IDs in final notes, and only then write or revise the plotting code.
 
+See the runnable generated-plot example:
+
+```text
+examples/generated_embedding_plot/README.md
+```

@@ -38,7 +38,10 @@ Read skills/agent-figure-gallery/SKILL.md, then use AgentFigureGallery before wr
 
 See `docs/AGENT_QUICKSTART.md` and `examples/agent_prompt.md`.
 
-End-to-end example: `examples/end_to_end_embedding.md`.
+End-to-end examples:
+
+- `examples/end_to_end_embedding.md`
+- `examples/generated_embedding_plot/README.md`
 
 Full public KB:
 
@@ -71,9 +74,12 @@ agentfiguregallery gallery --plot-type embedding_plot --limit 100 --serve
 ## Roadmap
 
 - [One-command Codex skill install](https://github.com/Dsadd4/AgentFigureGallery/issues/1)
-- [Full generated-figure example from bundle to final plot](https://github.com/Dsadd4/AgentFigureGallery/issues/2)
 - [Curated Cell and Science style reference packs](https://github.com/Dsadd4/AgentFigureGallery/issues/3)
 - [Faster full-public mirror for China and restricted networks](https://github.com/Dsadd4/AgentFigureGallery/issues/4)
+
+Completed proof point:
+
+- [Generated embedding plot from a reference bundle](examples/generated_embedding_plot/README.md)
 
 ## Docs
 
