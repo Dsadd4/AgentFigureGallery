@@ -16,7 +16,9 @@ jobs:
       - name: Install package
         run: python -m pip install -e .
       - name: Compile Python
-        run: python -m py_compile agentfiguregallery/*.py scripts/*.py
+        run: |
+          python -m py_compile agentfiguregallery/*.py scripts/*.py
+          bash -n scripts/install.sh
       - name: Private path scan
         run: python scripts/check_private_paths.py
       - name: CLI smoke test
@@ -25,6 +27,7 @@ jobs:
           agentfiguregallery install-skill --target codex --dest /tmp/afg-skills-test
           agentfiguregallery install-skill --target claude-code --dest /tmp/afg-claude-skills-test
           agentfiguregallery install-skill --target cursor --dest /tmp/afg-cursor-skills-test
+          agentfiguregallery install-cursor-rule --project /tmp/afg-cursor-project-test --force
           agentfiguregallery query --plot-type embedding_plot --json
           agentfiguregallery gallery --plot-type embedding_plot --limit 3 --strategy top --session-id ci_embedding_smoke
           agentfiguregallery prefer --session ci_embedding_smoke --like E01 --select E02
