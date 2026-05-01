@@ -2,9 +2,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 
-from .server import generate_session, run_server
+from .server import export_bundle, generate_session, resolve_session, run_server, update_preference
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -31,6 +32,21 @@ def build_parser() -> argparse.ArgumentParser:
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8765)
 
+    prefer = subparsers.add_parser("prefer", help="Record human preferences for a reference session.")
+    prefer.add_argument("--session", required=True)
+    prefer.add_argument("--like", nargs="+", action="append", default=[])
+    prefer.add_argument("--reject", nargs="+", action="append", default=[])
+    prefer.add_argument("--select", nargs="+", action="append", default=[])
+    prefer.add_argument("--clear", nargs="+", action="append", default=[])
+    prefer.add_argument("--global-like", nargs="+", action="append", default=[])
+    prefer.add_argument("--global-reject", nargs="+", action="append", default=[])
+    prefer.add_argument("--global-clear", nargs="+", action="append", default=[])
+
+    bundle = subparsers.add_parser("bundle", help="Export selected references for upstream agent action.")
+    bundle.add_argument("--session", required=True)
+    bundle.add_argument("--copy-scripts", action="store_true")
+    bundle.add_argument("--json", action="store_true")
+
     setup = subparsers.add_parser("setup", help="Download and configure a full KB asset pack.")
     setup.add_argument("--pack", default="public-preview")
     setup.add_argument("--manifest", default="")
@@ -47,7 +63,15 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def root() -> Path:
+    for key in ["AGENT_FIGURE_GALLERY_ROOT", "DRAWING_KB_ROOT"]:
+        value = os.environ.get(key)
+        if value:
+            return Path(value).expanduser().resolve()
     return Path(__file__).resolve().parents[1]
+
+
+def flatten_ids(groups: list[list[str]]) -> list[str]:
+    return [candidate_id for group in groups for candidate_id in group]
 
 
 def load_index() -> dict:
@@ -128,6 +152,52 @@ def command_assets(args: argparse.Namespace) -> int:
     return subprocess.call([sys.executable, str(script), "--pack", args.pack], cwd=root())
 
 
+def command_prefer(args: argparse.Namespace) -> int:
+    kb_root = root()
+    session_json = resolve_session(kb_root, args.session)
+    actions = [
+        ("like", flatten_ids(args.like)),
+        ("reject", flatten_ids(args.reject)),
+        ("select", flatten_ids(args.select)),
+        ("clear", flatten_ids(args.clear)),
+        ("global_like", flatten_ids(args.global_like)),
+        ("global_reject", flatten_ids(args.global_reject)),
+        ("global_clear", flatten_ids(args.global_clear)),
+    ]
+    updated = None
+    for action, ids in actions:
+        if not ids:
+            continue
+        updated = update_preference(
+            kb_root,
+            session_json,
+            {
+                "session": str(session_json),
+                "candidate_ids": ids,
+                "action": action,
+            },
+        )
+    if updated is None:
+        raise SystemExit("No preference action supplied.")
+    print(f"session: {updated.get('session_id')}")
+    print(f"preferences: {session_json.parent / 'preferences.json'}")
+    print(json.dumps(updated.get("status_counts", {}), indent=2, ensure_ascii=True))
+    return 0
+
+
+def command_bundle(args: argparse.Namespace) -> int:
+    kb_root = root()
+    session_json = resolve_session(kb_root, args.session)
+    bundle = export_bundle(kb_root, session_json, copy_scripts=args.copy_scripts)
+    if args.json:
+        print(json.dumps(bundle, indent=2, ensure_ascii=True))
+    else:
+        print(f"session: {bundle.get('session_id')}")
+        print(f"bundle_json: {bundle.get('paths', {}).get('bundle_json')}")
+        print(f"selected_references: {len(bundle.get('selected_references', []))}")
+    return 0
+
+
 def command_setup(args: argparse.Namespace) -> int:
     import subprocess
     import sys
@@ -154,6 +224,10 @@ def main() -> int:
         return command_gallery(args)
     if args.command == "serve":
         return run_server(root=root(), host=args.host, port=args.port)
+    if args.command == "prefer":
+        return command_prefer(args)
+    if args.command == "bundle":
+        return command_bundle(args)
     if args.command == "setup":
         return command_setup(args)
     if args.command == "assets":

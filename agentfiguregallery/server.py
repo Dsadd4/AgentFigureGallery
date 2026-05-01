@@ -439,6 +439,9 @@ def export_bundle(root: Path, session_json: Path, copy_scripts: bool = False) ->
         "resolved": session.get("resolved", {}),
         "selected_references": selected_candidates,
         "preferences": prefs,
+        "paths": {
+            "bundle_json": str(bundle_dir / "reference_bundle.json"),
+        },
         "upstream_agent_prompt": (
             "Use the selected_references as visual and code references. "
             "Preserve stable candidate IDs in notes and inspect source metadata before implementing."
@@ -543,4 +546,3 @@ def run_server(*, root: Path, host: str = "127.0.0.1", port: int = 8765) -> int:
     except KeyboardInterrupt:
         pass
     return 0
-

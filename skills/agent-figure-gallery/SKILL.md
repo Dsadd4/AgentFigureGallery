@@ -12,7 +12,7 @@ Treat this skill as a lightweight controller. Do not load the full visual corpus
 ## Key Files
 
 - KB root: `AGENT_FIGURE_GALLERY_ROOT=/path/to/AgentFigureGallery`
-- CLI: `agentfiguregallery` or `python "$AGENT_FIGURE_GALLERY_ROOT/scripts/drawing_agent_cli.py"`
+- CLI: `agentfiguregallery` or `python -m agentfiguregallery.cli`
 - Gallery server: backend command that serves the reference gallery on localhost
 - Candidate index: `data/reference_candidate_index.json`
 - Global preferences: `data/reference_global_preferences.json`
@@ -57,9 +57,9 @@ Local preferences must preserve `plot_type`. Global preferences are cross-task.
 After changing the CLI, gallery, preference logic, or bundle export:
 
 ```bash
-agentfiguregallery gallery --plot-type bar_chart --limit 20 --serve
+agentfiguregallery gallery --plot-type embedding_plot --limit 20 --serve
+agentfiguregallery prefer --session outputs/reference_sessions/<session_id> --like E01 --select E02
 agentfiguregallery bundle --session outputs/reference_sessions/<session_id>
 ```
 
 Success means visible candidates render, stable IDs are shown, preferences persist, global rejects are hidden from later generated sessions, and the bundle contains selected references plus source code paths.
-

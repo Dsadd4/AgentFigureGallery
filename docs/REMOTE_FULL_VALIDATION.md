@@ -6,12 +6,12 @@ Release commit: `2a530c8`
 
 Release assets: `full-public-v0.1.0`
 
-Validation host: `1.94.40.82`
+Validation host: remote Linux server
 
 Clean validation directory:
 
 ```text
-/root/afg_verify_full_public_20260501_142004
+<remote-validation-dir>
 ```
 
 ## Result
@@ -46,7 +46,7 @@ The full public KB is functionally valid on the remote server:
 
 ## Network Caveat
 
-The server can reach the GitHub Release API and GitHub release object storage, but the full remote download path is too slow on this host for a good public quickstart.
+The validation server can reach the GitHub Release API and GitHub release object storage, but the full remote download path was too slow on that network for a good public quickstart.
 
 Observed checks:
 

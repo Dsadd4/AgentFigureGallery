@@ -9,7 +9,7 @@ rsync -az --delete \
   --exclude 'outputs/' \
   --exclude '__pycache__/' \
   --exclude '.DS_Store' \
-  AgentFigureGallery/ 1.94.40.82:/root/AgentFigureGallery/
+  AgentFigureGallery/ <remote-host>:/root/AgentFigureGallery/
 ```
 
 ## Start On Remote
@@ -28,7 +28,7 @@ echo $! > outputs/server.pid
 If the cloud security group does not expose port `8876`, use:
 
 ```bash
-ssh -N -L 8877:127.0.0.1:8876 1.94.40.82
+ssh -N -L 8877:127.0.0.1:8876 <remote-host>
 ```
 
 Then open:
@@ -36,4 +36,3 @@ Then open:
 ```text
 http://127.0.0.1:8877/
 ```
-

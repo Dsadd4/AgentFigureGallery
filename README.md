@@ -1,5 +1,10 @@
 # AgentFigureGallery
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-3776ab.svg)](pyproject.toml)
+[![Full KB](https://img.shields.io/badge/full--public-16k%2B%20references-0f766e.svg)](docs/REMOTE_FULL_VALIDATION.md)
+[![Hugging Face Dataset](https://img.shields.io/badge/Hugging%20Face-dataset-ffcc00.svg)](https://huggingface.co/datasets/dsadd4/AgentFigureGallery)
+
 Make plotting agents learn Nature, Cell, and Science figure taste in one minute.
 It turns real visual references plus human like/reject feedback into action-ready plotting guidance for upstream agents.
 
@@ -14,11 +19,15 @@ pip install -e .
 agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve
 ```
 
-After `pip install -e .` finishes, tell your Codex/agent:
+## For Agents
+
+After `pip install -e .` finishes, tell your Codex, Claude Code, Cursor, or other coding agent:
 
 ```text
 Read skills/agent-figure-gallery/SKILL.md, then use AgentFigureGallery before writing publication figure code.
 ```
+
+See `docs/AGENT_QUICKSTART.md` and `examples/agent_prompt.md`.
 
 Full public KB:
 
@@ -57,5 +66,9 @@ agentfiguregallery gallery --plot-type embedding_plot --limit 100 --serve
 ## Docs
 
 - `ExtendAgent/`: instructions for agents that expand the gallery.
+- `docs/AGENT_QUICKSTART.md`: minimal instructions for coding agents.
+- `docs/PYPI_RELEASE.md`: Python package release path.
+- `docs/HF_DATASET_CARD.md`: Hugging Face dataset card draft.
+- `docs/LAUNCH.md`: public launch copy and channels.
 - `docs/FULL_KB_DISTRIBUTION.md`: public asset-pack strategy.
 - `docs/REMOTE_FULL_VALIDATION.md`: first remote full-public validation and current mirror-speed caveat.

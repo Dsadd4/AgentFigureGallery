@@ -39,6 +39,13 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Visualization",
 ]
 
+[project.urls]
+Homepage = "https://github.com/Dsadd4/AgentFigureGallery"
+Repository = "https://github.com/Dsadd4/AgentFigureGallery"
+Issues = "https://github.com/Dsadd4/AgentFigureGallery/issues"
+Dataset = "https://huggingface.co/datasets/dsadd4/AgentFigureGallery"
+Documentation = "https://github.com/Dsadd4/AgentFigureGallery#readme"
+
 [project.scripts]
 agentfiguregallery = "agentfiguregallery.cli:main"
 
