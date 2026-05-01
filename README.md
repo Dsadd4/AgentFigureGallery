@@ -19,7 +19,7 @@ The repository is not meant to be another plotting template dump. It is a compac
 ## Target Quickstart
 
 ```bash
-git clone https://github.com/<org>/AgentFigureGallery.git
+git clone https://github.com/Dsadd4/AgentFigureGallery.git
 cd AgentFigureGallery
 python -m venv .venv
 source .venv/bin/activate
@@ -39,7 +39,7 @@ The current development cut already includes a Glike-curated `minimal` pack:
 For the full public KB, keep the GitHub repo light and configure assets with one command:
 
 ```bash
-agentfiguregallery setup --pack public-preview --manifest-url https://huggingface.co/datasets/<org>/AgentFigureGallery/resolve/main/resource_manifest.json
+agentfiguregallery setup --pack full-public --manifest-url https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/resource_manifest.json
 ```
 
 The extension workflow for other agents lives in `ExtendAgent/`.

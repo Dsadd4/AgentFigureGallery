@@ -30,18 +30,97 @@
     },
     {
       "name": "full-public",
-      "description": "Full public AgentFigureGallery KB without private-path candidates or raw upstream git mirrors.",
+      "description": "Full public AgentFigureGallery KB without private-path candidates or raw upstream git mirrors, split into resumable core and preview archives.",
       "entries": [
         {
-          "path": "assets/packs/full-public/full-public.tar.gz",
-          "url": "TODO_PUBLIC_URL/full-public/full-public.tar.gz",
-          "sha256": "",
-          "size_bytes": 0,
-          "description": "Private-filtered full public KB archive.",
+          "path": "assets/packs/full-public/core.tar.gz",
+          "url": "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/full-public/core.tar.gz",
+          "sha256": "9ec1f9019987e011604ad9c145ba8f3e2442b8b8a9bf6fab0939beee13fc4c08",
+          "size_bytes": 1511337,
+          "description": "full-public core archive",
+          "unpack": true
+        },
+        {
+          "path": "assets/packs/full-public/previews/previews-bar_chart.tar.gz",
+          "url": "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/full-public/previews/previews-bar_chart.tar.gz",
+          "sha256": "51f56d8ceb1c2dc2cf8063ec274724c4dbfdc56a86389cd0e1abfe1bb482d1e9",
+          "size_bytes": 148281803,
+          "description": "full-public preview archive: bar_chart.tar",
+          "unpack": true
+        },
+        {
+          "path": "assets/packs/full-public/previews/previews-benchmark_performance.tar.gz",
+          "url": "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/full-public/previews/previews-benchmark_performance.tar.gz",
+          "sha256": "f7fecbb707e228faf563a7fd82c882ae31bf14fd814121e1bee5a1e3936abb6a",
+          "size_bytes": 298624513,
+          "description": "full-public preview archive: benchmark_performance.tar",
+          "unpack": true
+        },
+        {
+          "path": "assets/packs/full-public/previews/previews-box_violin_distribution.tar.gz",
+          "url": "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/full-public/previews/previews-box_violin_distribution.tar.gz",
+          "sha256": "e3f8d0d252ef32897df1b854e73808158365d90240ab0477abd0ce1c17057f47",
+          "size_bytes": 83919199,
+          "description": "full-public preview archive: box_violin_distribution.tar",
+          "unpack": true
+        },
+        {
+          "path": "assets/packs/full-public/previews/previews-embedding_plot.tar.gz",
+          "url": "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/full-public/previews/previews-embedding_plot.tar.gz",
+          "sha256": "cbb175e64c13f8cab230e73c8f1422e1d1987a55edbfec350cbd078f8c6c001e",
+          "size_bytes": 137498133,
+          "description": "full-public preview archive: embedding_plot.tar",
+          "unpack": true
+        },
+        {
+          "path": "assets/packs/full-public/previews/previews-heatmap_matrix.tar.gz",
+          "url": "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/full-public/previews/previews-heatmap_matrix.tar.gz",
+          "sha256": "5d00d6a7609061a96547c80c671ad05b0daebae633b5cc3404e5be4f4f404b19",
+          "size_bytes": 97290677,
+          "description": "full-public preview archive: heatmap_matrix.tar",
+          "unpack": true
+        },
+        {
+          "path": "assets/packs/full-public/previews/previews-line_chart.tar.gz",
+          "url": "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/full-public/previews/previews-line_chart.tar.gz",
+          "sha256": "8dd220ac9e5734385456255b8a5bd039d7eabdd0d93756e55af13bc97c94c742",
+          "size_bytes": 113959814,
+          "description": "full-public preview archive: line_chart.tar",
+          "unpack": true
+        },
+        {
+          "path": "assets/packs/full-public/previews/previews-microscopy_panel.tar.gz",
+          "url": "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/full-public/previews/previews-microscopy_panel.tar.gz",
+          "sha256": "8549f4fdb4caeadb2a4b95e5ec6d480037750beaa3ad4788eecbd2f21b277c28",
+          "size_bytes": 266831386,
+          "description": "full-public preview archive: microscopy_panel.tar",
+          "unpack": true
+        },
+        {
+          "path": "assets/packs/full-public/previews/previews-multi_panel_figure.tar.gz",
+          "url": "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/full-public/previews/previews-multi_panel_figure.tar.gz",
+          "sha256": "cf56e12a24145b810e2d8a83ffc2df274a5199189c361f352dd138f24ca98f29",
+          "size_bytes": 503082910,
+          "description": "full-public preview archive: multi_panel_figure.tar",
+          "unpack": true
+        },
+        {
+          "path": "assets/packs/full-public/previews/previews-scatter_plot.tar.gz",
+          "url": "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/full-public/previews/previews-scatter_plot.tar.gz",
+          "sha256": "a97876603138e23c2f1e1c07de2ac053f4423b9b957412773d09c17fdcdc1877",
+          "size_bytes": 154107252,
+          "description": "full-public preview archive: scatter_plot.tar",
+          "unpack": true
+        },
+        {
+          "path": "assets/packs/full-public/previews/previews-spatial_map.tar.gz",
+          "url": "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/full-public/previews/previews-spatial_map.tar.gz",
+          "sha256": "8175e37c7e4f8a62bc0af5dcf2b4c8cd005742fb28ae4bf1bb3440028d6126a6",
+          "size_bytes": 69295203,
+          "description": "full-public preview archive: spatial_map.tar",
           "unpack": true
         }
       ]
     }
   ]
 }
-

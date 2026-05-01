@@ -114,6 +114,36 @@ def make_tar_gz(source_dir: Path, archive_path: Path) -> None:
         handle.add(source_dir, arcname=".")
 
 
+def make_core_tar_gz(stage_dir: Path, archive_path: Path, pack: str) -> None:
+    archive_path.parent.mkdir(parents=True, exist_ok=True)
+    if archive_path.exists():
+        archive_path.unlink()
+    preview_root = (stage_dir / "assets" / "packs" / pack / "previews").resolve()
+    with tarfile.open(archive_path, "w:gz") as handle:
+        for path in stage_dir.rglob("*"):
+            if not path.is_file():
+                continue
+            if path == preview_root or preview_root in path.resolve().parents:
+                continue
+            handle.add(path, arcname=path.relative_to(stage_dir).as_posix())
+
+
+def make_preview_archives(stage_dir: Path, archive_dir: Path, pack: str) -> list[Path]:
+    archive_dir.mkdir(parents=True, exist_ok=True)
+    preview_root = stage_dir / "assets" / "packs" / pack / "previews"
+    archives: list[Path] = []
+    for plot_dir in sorted(preview_root.iterdir()):
+        if not plot_dir.is_dir():
+            continue
+        archive_path = archive_dir / f"previews-{plot_dir.name}.tar.gz"
+        if archive_path.exists():
+            archive_path.unlink()
+        with tarfile.open(archive_path, "w:gz") as handle:
+            handle.add(plot_dir, arcname=plot_dir.relative_to(stage_dir).as_posix())
+        archives.append(archive_path)
+    return archives
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-root", type=Path, default=Path.cwd().parent)
@@ -125,6 +155,7 @@ def main() -> int:
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--base-url", default="TODO_PUBLIC_URL", help="URL prefix used in the generated manifest fragment.")
     parser.add_argument("--exclude-private-pattern", action="append", default=[])
+    parser.add_argument("--split-archives", action="store_true", help="Write core and per-plot-type preview archives instead of one large tarball.")
     args = parser.parse_args()
 
     source_root = args.source_root.resolve()
@@ -211,29 +242,55 @@ def main() -> int:
                 target = stage_dir / name
                 shutil.copy2(source, target)
 
-    make_tar_gz(stage_dir, archive_path)
-    digest = sha256_file(archive_path)
-    manifest_fragment = {
-        "name": args.pack,
-        "description": f"Private-filtered {args.pack} AgentFigureGallery KB pack.",
-        "entries": [
+    entries = []
+    if args.split_archives:
+        core_path = output_dir / "core.tar.gz"
+        make_core_tar_gz(stage_dir, core_path, args.pack)
+        entries.append(
+            {
+                "path": f"assets/packs/{args.pack}/core.tar.gz",
+                "url": f"{args.base_url.rstrip('/')}/{args.pack}/core.tar.gz",
+                "sha256": sha256_file(core_path),
+                "size_bytes": core_path.stat().st_size,
+                "description": f"{args.pack} core archive",
+                "unpack": True,
+            }
+        )
+        for preview_archive in make_preview_archives(stage_dir, output_dir / "previews", args.pack):
+            entries.append(
+                {
+                    "path": f"assets/packs/{args.pack}/previews/{preview_archive.name}",
+                    "url": f"{args.base_url.rstrip('/')}/{args.pack}/previews/{preview_archive.name}",
+                    "sha256": sha256_file(preview_archive),
+                    "size_bytes": preview_archive.stat().st_size,
+                    "description": f"{args.pack} preview archive: {preview_archive.stem.removeprefix('previews-')}",
+                    "unpack": True,
+                }
+            )
+        print(f"archives: {len(entries)} split entries")
+    else:
+        make_tar_gz(stage_dir, archive_path)
+        entries.append(
             {
                 "path": f"assets/packs/{args.pack}/{archive_path.name}",
                 "url": f"{args.base_url.rstrip('/')}/{args.pack}/{archive_path.name}",
-                "sha256": digest,
+                "sha256": sha256_file(archive_path),
                 "size_bytes": archive_path.stat().st_size,
                 "description": f"{args.pack} archive",
                 "unpack": True,
             }
-        ],
+        )
+        print(f"archive: {archive_path}")
+        print(f"sha256: {entries[0]['sha256']}")
+    manifest_fragment = {
+        "name": args.pack,
+        "description": f"Private-filtered {args.pack} AgentFigureGallery KB pack.",
+        "entries": entries,
     }
     write_json(output_dir / "resource_manifest.fragment.json", manifest_fragment)
-    print(f"archive: {archive_path}")
-    print(f"sha256: {digest}")
     print(f"manifest fragment: {output_dir / 'resource_manifest.fragment.json'}")
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

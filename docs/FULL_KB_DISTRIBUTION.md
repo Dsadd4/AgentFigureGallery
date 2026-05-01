@@ -7,10 +7,10 @@ Keep the GitHub repository small while making the full AgentFigureGallery KB ava
 The user-facing install path should be:
 
 ```bash
-git clone https://github.com/<org>/AgentFigureGallery.git
+git clone https://github.com/Dsadd4/AgentFigureGallery.git
 cd AgentFigureGallery
 pip install -e .
-agentfiguregallery setup --pack public-preview --manifest-url https://huggingface.co/datasets/<org>/AgentFigureGallery/resolve/main/resource_manifest.json
+agentfiguregallery setup --pack full-public --manifest-url https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/resource_manifest.json
 agentfiguregallery gallery --plot-type heatmap_matrix --limit 50 --serve
 ```
 
@@ -116,7 +116,7 @@ python AgentFigureGallery/scripts/build_public_kb_pack.py \
   --release-root /path/to/Drawing/AgentFigureGallery \
   --pack full-public \
   --overwrite \
-  --base-url https://huggingface.co/datasets/<org>/AgentFigureGallery/resolve/main
+  --base-url https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main
 ```
 
 This writes:
