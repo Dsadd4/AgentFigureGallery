@@ -40,12 +40,12 @@ GitHub: https://github.com/Dsadd4/AgentFigureGallery
 
 ## Roadmap Issues To Keep Open
 
-- [Add one-command Codex skill install](https://github.com/Dsadd4/AgentFigureGallery/issues/1).
 - [Expand curated Cell and Science style reference packs](https://github.com/Dsadd4/AgentFigureGallery/issues/3).
 - [Add a faster full-public mirror for China and restricted networks](https://github.com/Dsadd4/AgentFigureGallery/issues/4).
 
 ## Completed Proof Points
 
+- [One-command Codex skill install](https://github.com/Dsadd4/AgentFigureGallery/issues/1).
 - [Generated embedding plot from a reference bundle](../examples/generated_embedding_plot/README.md).
 
 ## Launch Checklist

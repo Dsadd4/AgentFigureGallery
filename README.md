@@ -25,6 +25,7 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -e .
 agentfiguregallery doctor
+agentfiguregallery install-skill --target codex
 agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve
 ```
 
@@ -34,6 +35,12 @@ After `pip install -e .` finishes, tell your Codex, Claude Code, Cursor, or othe
 
 ```text
 Read skills/agent-figure-gallery/SKILL.md, then use AgentFigureGallery before writing publication figure code.
+```
+
+Or install the Codex skill wrapper first:
+
+```bash
+agentfiguregallery install-skill --target codex
 ```
 
 See `docs/AGENT_QUICKSTART.md` and `examples/agent_prompt.md`.
@@ -73,12 +80,12 @@ agentfiguregallery gallery --plot-type embedding_plot --limit 100 --serve
 
 ## Roadmap
 
-- [One-command Codex skill install](https://github.com/Dsadd4/AgentFigureGallery/issues/1)
 - [Curated Cell and Science style reference packs](https://github.com/Dsadd4/AgentFigureGallery/issues/3)
 - [Faster full-public mirror for China and restricted networks](https://github.com/Dsadd4/AgentFigureGallery/issues/4)
 
 Completed proof point:
 
+- [One-command Codex skill install](https://github.com/Dsadd4/AgentFigureGallery/issues/1)
 - [Generated embedding plot from a reference bundle](examples/generated_embedding_plot/README.md)
 
 ## Docs

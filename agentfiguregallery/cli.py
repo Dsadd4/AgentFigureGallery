@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
 from pathlib import Path
 
 from . import __version__
@@ -15,6 +16,13 @@ def build_parser() -> argparse.ArgumentParser:
 
     doctor = subparsers.add_parser("doctor", help="Check local KB readiness and print next commands.")
     doctor.add_argument("--json", action="store_true")
+
+    install_skill = subparsers.add_parser("install-skill", help="Install the lightweight agent skill wrapper.")
+    install_skill.add_argument("--target", choices=["codex"], default="codex")
+    install_skill.add_argument("--dest", type=Path, help="Destination skills directory. Defaults to ~/.codex/skills.")
+    install_skill.add_argument("--mode", choices=["copy", "symlink"], default="copy")
+    install_skill.add_argument("--force", action="store_true", help="Replace an existing installed skill.")
+    install_skill.add_argument("--json", action="store_true")
 
     query = subparsers.add_parser("query", help="Resolve a task or plot type to available candidate counts.")
     query.add_argument("--task", default="")
@@ -78,6 +86,21 @@ def flatten_ids(groups: list[list[str]]) -> list[str]:
     return [candidate_id for group in groups for candidate_id in group]
 
 
+def codex_skills_dir() -> Path:
+    codex_home = os.environ.get("CODEX_HOME")
+    if codex_home:
+        return Path(codex_home).expanduser().resolve() / "skills"
+    return Path.home() / ".codex" / "skills"
+
+
+def skill_source_dir(kb_root: Path) -> Path:
+    return kb_root / "skills" / "agent-figure-gallery"
+
+
+def agent_prompt() -> str:
+    return "Read the agent-figure-gallery skill, then use AgentFigureGallery before writing publication figure code."
+
+
 def load_index() -> dict:
     path = root() / "data" / "reference_candidate_index.json"
     if not path.exists():
@@ -96,7 +119,8 @@ def plot_type_counts(candidates: list[dict]) -> dict[str, int]:
 def command_doctor(args: argparse.Namespace) -> int:
     kb_root = root()
     index_path = kb_root / "data" / "reference_candidate_index.json"
-    skill_path = kb_root / "skills" / "agent-figure-gallery" / "SKILL.md"
+    skill_path = skill_source_dir(kb_root) / "SKILL.md"
+    codex_skill_path = codex_skills_dir() / "agent-figure-gallery" / "SKILL.md"
     frontend_path = kb_root / "frontend" / "reference_gallery" / "index.html"
     manifest_path = kb_root / "manifests" / "resource_manifest.json"
     hub_manifest_url = "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/resource_manifest.json"
@@ -118,7 +142,12 @@ def command_doctor(args: argparse.Namespace) -> int:
         "candidate_total": len(candidates),
         "plot_type_counts": counts,
         "agent_skill": str(skill_path),
+        "codex_skill": {
+            "installed": codex_skill_path.exists(),
+            "path": str(codex_skill_path),
+        },
         "recommended_commands": [
+            "agentfiguregallery install-skill --target codex",
             "agentfiguregallery query --task \"Nature-style embedding map for cell atlas\"",
             "agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve",
             f"agentfiguregallery setup --pack full-public --manifest-url {hub_manifest_url}",
@@ -137,10 +166,73 @@ def command_doctor(args: argparse.Namespace) -> int:
             for plot_type, count in counts.items():
                 print(f"  {plot_type}: {count}")
         print(f"agent_skill: {payload['agent_skill']}")
+        installed = payload["codex_skill"]["installed"]
+        print(f"{'OK' if installed else 'MISSING'} codex_skill: {payload['codex_skill']['path']}")
         print("next:")
         for command in payload["recommended_commands"]:
             print(f"  {command}")
     return 0 if payload["ok"] else 1
+
+
+def command_install_skill(args: argparse.Namespace) -> int:
+    kb_root = root()
+    source_dir = skill_source_dir(kb_root)
+    if not (source_dir / "SKILL.md").exists():
+        raise SystemExit(f"Missing skill source: {source_dir}")
+
+    dest_dir = (args.dest or codex_skills_dir()).expanduser().resolve()
+    install_dir = dest_dir / source_dir.name
+    action = "exists"
+
+    if install_dir.exists() or install_dir.is_symlink():
+        if args.force:
+            if install_dir.is_symlink() or install_dir.is_file():
+                install_dir.unlink()
+            else:
+                shutil.rmtree(install_dir)
+        else:
+            payload = {
+                "target": args.target,
+                "action": action,
+                "source": str(source_dir),
+                "installed": str(install_dir),
+                "root": str(kb_root),
+                "shell": f"export AGENT_FIGURE_GALLERY_ROOT={kb_root}",
+                "prompt": agent_prompt(),
+            }
+            if args.json:
+                print(json.dumps(payload, indent=2, ensure_ascii=True))
+            else:
+                print(f"skill already installed: {install_dir}")
+                print("refresh with: agentfiguregallery install-skill --target codex --force")
+                print(f"shell: {payload['shell']}")
+                print(f"prompt: {payload['prompt']}")
+            return 0
+
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    if args.mode == "symlink":
+        install_dir.symlink_to(source_dir, target_is_directory=True)
+        action = "symlinked"
+    else:
+        shutil.copytree(source_dir, install_dir)
+        action = "copied"
+
+    payload = {
+        "target": args.target,
+        "action": action,
+        "source": str(source_dir),
+        "installed": str(install_dir),
+        "root": str(kb_root),
+        "shell": f"export AGENT_FIGURE_GALLERY_ROOT={kb_root}",
+        "prompt": agent_prompt(),
+    }
+    if args.json:
+        print(json.dumps(payload, indent=2, ensure_ascii=True))
+    else:
+        print(f"skill {action}: {install_dir}")
+        print(f"shell: {payload['shell']}")
+        print(f"prompt: {payload['prompt']}")
+    return 0
 
 
 def infer_plot_type(task: str, explicit: str) -> str:
@@ -279,6 +371,8 @@ def main() -> int:
     args = parser.parse_args()
     if args.command == "doctor":
         return command_doctor(args)
+    if args.command == "install-skill":
+        return command_install_skill(args)
     if args.command == "query":
         return command_query(args)
     if args.command == "gallery":

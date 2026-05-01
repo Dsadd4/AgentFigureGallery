@@ -15,6 +15,7 @@ Read skills/agent-figure-gallery/SKILL.md before acting.
 ```bash
 export AGENT_FIGURE_GALLERY_ROOT=/path/to/AgentFigureGallery
 agentfiguregallery doctor
+agentfiguregallery install-skill --target codex
 agentfiguregallery query --task "Nature-style embedding map for cell atlas"
 agentfiguregallery gallery --plot-type embedding_plot --task "Nature-style embedding map for cell atlas" --limit 50 --serve
 ```
@@ -39,3 +40,11 @@ outputs/reference_sessions/<session_id>/export_bundle/reference_bundle.json
 - Treat `like` and `reject` as plot-type preferences.
 - Treat `global_like` and `global_reject` as reusable cross-task taste memory.
 - If no reference fits, ask the human to reject bad candidates and generate another gallery.
+
+## Codex Skill Install
+
+```bash
+agentfiguregallery install-skill --target codex
+```
+
+This copies only the lightweight skill wrapper into `~/.codex/skills/agent-figure-gallery`. The visual KB stays in the AgentFigureGallery clone and is located through `AGENT_FIGURE_GALLERY_ROOT`.
