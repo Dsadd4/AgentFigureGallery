@@ -54,4 +54,5 @@ GitHub: https://github.com/Dsadd4/AgentFigureGallery
 - Demo GIF is visible above the fold.
 - GitHub topics are configured.
 - Full-public pack has remote validation.
+- Hugging Face dataset card can be synced with `python scripts/upload_full_public_to_hf.py --card-only`.
 - Faster mirror for China/Huawei Cloud deployments is still recommended before claiming frictionless full-public setup everywhere.

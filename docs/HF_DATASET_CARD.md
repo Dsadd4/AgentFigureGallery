@@ -2,6 +2,13 @@
 
 Use this as the README for `dsadd4/AgentFigureGallery` on Hugging Face.
 
+Sync only the dataset card:
+
+```bash
+export HF_TOKEN="your_huggingface_write_token"
+python scripts/upload_full_public_to_hf.py --card-only
+```
+
 ````markdown
 ---
 pretty_name: AgentFigureGallery

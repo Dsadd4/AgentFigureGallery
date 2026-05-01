@@ -99,7 +99,7 @@ def command_doctor(args: argparse.Namespace) -> int:
     skill_path = kb_root / "skills" / "agent-figure-gallery" / "SKILL.md"
     frontend_path = kb_root / "frontend" / "reference_gallery" / "index.html"
     manifest_path = kb_root / "manifests" / "resource_manifest.json"
-    hf_manifest_url = "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/resource_manifest.json"
+    hub_manifest_url = "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/resource_manifest.json"
 
     index = load_index()
     candidates = index.get("candidates", [])
@@ -121,7 +121,7 @@ def command_doctor(args: argparse.Namespace) -> int:
         "recommended_commands": [
             "agentfiguregallery query --task \"Nature-style embedding map for cell atlas\"",
             "agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve",
-            f"agentfiguregallery setup --pack full-public --manifest-url {hf_manifest_url}",
+            f"agentfiguregallery setup --pack full-public --manifest-url {hub_manifest_url}",
         ],
     }
     if args.json:
