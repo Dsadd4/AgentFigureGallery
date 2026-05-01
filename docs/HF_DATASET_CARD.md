@@ -19,6 +19,12 @@ tags:
 - data-visualization
 - bioinformatics
 - ai-agents
+- agent-skill
+- codex
+- codex-skill
+- claude-code
+- cursor
+- coding-agents
 - human-in-the-loop
 - nature-style
 - cell-style

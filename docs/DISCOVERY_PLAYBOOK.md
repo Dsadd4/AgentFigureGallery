@@ -39,9 +39,9 @@ GitHub: https://github.com/Dsadd4/AgentFigureGallery
 
 ## GitHub Metadata
 
-- Description: `Human-in-the-loop visual reference memory for scientific plotting agents.`
+- Description: `Codex-ready human-in-the-loop visual reference memory for scientific plotting agents.`
 - Homepage: `https://huggingface.co/datasets/dsadd4/AgentFigureGallery`
-- Topics: keep `scientific-figures`, `scientific-visualization`, `bioinformatics`, `ai-agent`, `llm-agents`, `plotting-agent`, `nature-style`, `cell-style`, `science-style`, `matplotlib`, `ggplot2`, `human-in-the-loop`, `reference-gallery`.
+- Topics: keep `agent-tools`, `ai-agent`, `agent-skill`, `skill`, `codex`, `claude-code`, `cursor`, `llm-agents`, `human-in-the-loop`, `plotting-agent`, `scientific-figures`, `scientific-visualization`, `data-visualization`, `bioinformatics`, `matplotlib`, `ggplot2`, `reference-gallery`, `nature-style`, `cell-style`, `science-style`.
 
 ## Roadmap Issues To Keep Open
 
