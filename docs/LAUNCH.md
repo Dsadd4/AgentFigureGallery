@@ -4,6 +4,8 @@
 
 Teach your plotting agent Nature, Cell, and Science figure taste in one minute.
 
+Clone once, run one command, and your Codex learns to query a human-curated scientific figure gallery before writing plotting code.
+
 ## Short Launch Copy
 
 AgentFigureGallery is a human-preference memory loop for publication-quality scientific figures.
@@ -21,6 +23,7 @@ Instead of asking an agent to invent a Nature/Cell/Science-style figure from tex
 
 16k+ public figure candidates.
 Dynamic browser gallery.
+One-command Codex skill install.
 Global and plot-type preference memory.
 
 GitHub: https://github.com/Dsadd4/AgentFigureGallery

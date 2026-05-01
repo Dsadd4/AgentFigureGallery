@@ -8,6 +8,14 @@
 Make plotting agents learn Nature, Cell, and Science figure taste in one minute.
 It turns real visual references plus human like/reject feedback into action-ready plotting guidance for upstream agents.
 
+**One-command Codex skill install:**
+
+```bash
+agentfiguregallery install-skill --target codex
+```
+
+Clone once, run one command, and your Codex learns to query a human-curated scientific figure gallery before writing plotting code.
+
 ![AgentFigureGallery dynamic demo](docs/assets/agentfiguregallery-demo.gif)
 
 ```text

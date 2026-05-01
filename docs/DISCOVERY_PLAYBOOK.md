@@ -8,6 +8,10 @@ Goal: make AgentFigureGallery easy to find, understand, try, and share.
 Teach your plotting agent Nature, Cell, and Science figure taste in one minute.
 ```
 
+```text
+Clone once, run one command, and your Codex learns to query a human-curated scientific figure gallery before writing plotting code.
+```
+
 ## Share Copy
 
 ```text
@@ -17,6 +21,7 @@ Instead of asking an AI agent to invent a Nature/Cell/Science-style figure from 
 
 16k+ public scientific figure candidates.
 Dynamic browser gallery.
+One-command Codex skill install.
 Global and plot-type preference memory.
 
 GitHub: https://github.com/Dsadd4/AgentFigureGallery
@@ -51,6 +56,7 @@ GitHub: https://github.com/Dsadd4/AgentFigureGallery
 ## Launch Checklist
 
 - README shows the GIF above installation.
+- README makes `agentfiguregallery install-skill --target codex` visible above the GIF.
 - `agentfiguregallery doctor` passes after install.
 - Hugging Face dataset card is synced.
 - GitHub Actions is green.
