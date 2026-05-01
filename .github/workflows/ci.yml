@@ -21,6 +21,7 @@ jobs:
         run: python scripts/check_private_paths.py
       - name: CLI smoke test
         run: |
+          agentfiguregallery doctor
           agentfiguregallery query --plot-type embedding_plot --json
           agentfiguregallery gallery --plot-type embedding_plot --limit 3 --strategy top --session-id ci_embedding_smoke
           agentfiguregallery prefer --session ci_embedding_smoke --like E01 --select E02
