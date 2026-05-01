@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Compile Python
+        run: python -m py_compile agentfiguregallery/*.py scripts/*.py
+      - name: Private path scan
+        run: python scripts/check_private_paths.py
+      - name: CLI smoke test
+        run: |
+          agentfiguregallery query --plot-type embedding_plot --json
+          agentfiguregallery gallery --plot-type embedding_plot --limit 3 --strategy top --session-id ci_embedding_smoke
+          agentfiguregallery prefer --session ci_embedding_smoke --like E01 --select E02
+          agentfiguregallery bundle --session ci_embedding_smoke
