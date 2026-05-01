@@ -14,6 +14,12 @@ pip install -e .
 agentfiguregallery gallery --plot-type heatmap_matrix --limit 50 --serve
 ```
 
+After `pip install -e .` finishes, tell your Codex/agent:
+
+```text
+Read skills/agent-figure-gallery/SKILL.md, then use AgentFigureGallery before writing publication figure code.
+```
+
 Full public KB:
 
 ```bash
@@ -27,6 +33,8 @@ agentfiguregallery setup --pack full-public --manifest manifests/resource_manife
 ```
 
 ## Dynamic Gallery
+
+![AgentFigureGallery dynamic demo](docs/assets/agentfiguregallery-demo.gif)
 
 ```text
 agent query -> gallery display -> human like/reject/select -> agent action
@@ -45,10 +53,6 @@ agentfiguregallery gallery --plot-type bar_chart --limit 100 --serve
 - Glike-curated minimal pack committed for instant smoke tests.
 - Backend CLI, browser gallery, Codex skill wrapper, and agent expansion guide.
 - Candidate IDs, global/type-level preferences, and export bundles for agent handoff.
-
-## Search Keywords
-
-`scientific-figures` `nature-style` `cell-style` `science-style` `plotting-agent` `ai-agent` `human-in-the-loop` `data-visualization` `bioinformatics` `matplotlib` `ggplot2` `reference-gallery`
 
 ## Docs
 
