@@ -8,6 +8,14 @@
 Make plotting agents learn Nature, Cell, and Science figure taste in one minute.
 It turns real visual references plus human like/reject feedback into action-ready plotting guidance for upstream agents.
 
+![AgentFigureGallery dynamic demo](docs/assets/agentfiguregallery-demo.gif)
+
+```text
+agent query -> gallery display -> human like/reject/select -> agent action
+```
+
+AgentFigureGallery helps coding agents stop guessing what a publication figure should look like. The agent queries visual references first, the human marks taste preferences in a browser gallery, and the selected references are exported as an action bundle before plotting code is written.
+
 ## Install
 
 ```bash
@@ -30,6 +38,8 @@ Read skills/agent-figure-gallery/SKILL.md, then use AgentFigureGallery before wr
 
 See `docs/AGENT_QUICKSTART.md` and `examples/agent_prompt.md`.
 
+End-to-end example: `examples/end_to_end_embedding.md`.
+
 Full public KB:
 
 ```bash
@@ -42,13 +52,7 @@ Fallback when Hugging Face is blocked:
 agentfiguregallery setup --pack full-public --manifest manifests/resource_manifest.github-api.json
 ```
 
-## Dynamic Gallery: Human-Preference Evolution Loop
-
-![AgentFigureGallery dynamic demo](docs/assets/agentfiguregallery-demo.gif)
-
-```text
-agent query -> gallery display -> human like/reject/select -> agent action
-```
+## Dynamic Gallery
 
 Use the browser gallery to generate candidates by plot type, remove bad references globally, keep type-specific preferences, and export selected references for the agent that will write the final plotting code. Every like/reject becomes reusable taste memory, so the system gets sharper as humans and agents keep using it.
 
@@ -64,10 +68,18 @@ agentfiguregallery gallery --plot-type embedding_plot --limit 100 --serve
 - Backend CLI, browser gallery, Codex skill wrapper, and agent expansion guide.
 - Candidate IDs, global/type-level preferences, and export bundles for agent handoff.
 
+## Roadmap
+
+- [One-command Codex skill install](https://github.com/Dsadd4/AgentFigureGallery/issues/1)
+- [Full generated-figure example from bundle to final plot](https://github.com/Dsadd4/AgentFigureGallery/issues/2)
+- [Curated Cell and Science style reference packs](https://github.com/Dsadd4/AgentFigureGallery/issues/3)
+- [Faster full-public mirror for China and restricted networks](https://github.com/Dsadd4/AgentFigureGallery/issues/4)
+
 ## Docs
 
 - `ExtendAgent/`: instructions for agents that expand the gallery.
 - `docs/AGENT_QUICKSTART.md`: minimal instructions for coding agents.
+- `docs/DISCOVERY_PLAYBOOK.md`: launch and star-growth checklist.
 - `docs/PYPI_RELEASE.md`: Python package release path.
 - `docs/HF_DATASET_CARD.md`: Hugging Face dataset card draft.
 - `docs/LAUNCH.md`: public launch copy and channels.
