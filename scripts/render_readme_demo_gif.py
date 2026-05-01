@@ -55,16 +55,16 @@ def fit_preview(path: Path, box: tuple[int, int]) -> Image.Image:
 
 def load_previews() -> list[tuple[str, Path]]:
     paths = [
-        ROOT / "assets/packs/minimal/previews/heatmap_matrix/HEAT-E41BAD21A4.png",
-        ROOT / "assets/packs/minimal/previews/heatmap_matrix/HEAT-D363898CC3.png",
-        ROOT / "assets/packs/minimal/previews/heatmap_matrix/HEAT-E7F8572250.png",
+        ROOT / "assets/packs/minimal/previews/embedding_plot/EMB-3663479D54.png",
+        ROOT / "assets/packs/minimal/previews/embedding_plot/EMB-3928F88AD7.png",
+        ROOT / "assets/packs/minimal/previews/embedding_plot/EMB-FE34642DA4.png",
     ]
-    fallback = sorted((ROOT / "assets/packs/minimal/previews/heatmap_matrix").glob("*.*"))
+    fallback = sorted((ROOT / "assets/packs/minimal/previews/embedding_plot").glob("*.*"))
     selected = paths if all(path.exists() for path in paths) else fallback[:3]
     return [(path.stem, path) for path in selected]
 
 
-PREVIEWS = [(name, fit_preview(path, (206, 132))) for name, path in load_previews()]
+PREVIEWS = [(name, fit_preview(path, (206, 168))) for name, path in load_previews()]
 
 
 def draw_button(draw: ImageDraw.ImageDraw, xy: tuple[int, int, int, int], label: str, active: bool = False, danger: bool = False) -> None:
@@ -91,7 +91,7 @@ def draw_sidebar(draw: ImageDraw.ImageDraw, phase: int) -> None:
     text(draw, (72, 43), "taste memory for agents", "xs", "#667085")
     y = 86
     for label, value in [
-        ("Plot Type", "heatmap_matrix"),
+        ("Plot Type", "embedding_plot"),
         ("Count", "50"),
         ("Strategy", "Explore"),
     ]:
@@ -101,18 +101,18 @@ def draw_sidebar(draw: ImageDraw.ImageDraw, phase: int) -> None:
         y += 70
     text(draw, (20, y), "Task", "sm", "#344054")
     rounded(draw, (20, y + 20, 190, y + 88), "#ffffff", "#d9dde3", radius=6)
-    for i, line in enumerate(wrap("Nature-style heatmap for pathway activity", width=22)):
+    for i, line in enumerate(wrap("Nature-style embedding map for cell atlas", width=22)):
         text(draw, (32, y + 28 + i * 15), line, "sm")
     draw_button(draw, (20, y + 104, 190, y + 138), "Generate", active=phase == 0)
     draw_button(draw, (20, y + 152, 190, y + 186), "Export Bundle", active=phase == 4)
 
 
 def draw_topbar(draw: ImageDraw.ImageDraw, phase: int) -> None:
-    title = "gallery_heatmap_matrix_explore"
-    meta = "heatmap_matrix | 50 candidates | global liked 1, global rejected 1"
+    title = "gallery_embedding_plot"
+    meta = "embedding_plot | 50 candidates"
     if phase == 0:
-        title = "Choose references"
-        meta = "query -> display -> human preference -> agent action"
+        title = "Embedding references"
+        meta = "query -> display -> prefer -> act"
     text(draw, (234, 18), title, "xl")
     text(draw, (234, 46), meta, "sm", "#667085")
     chips = [("All 50", False, False), ("Open 48", False, False), ("G Liked 1", phase >= 3, False), ("Rejected 1", phase >= 2, True)]
@@ -130,22 +130,22 @@ def draw_card(canvas: Image.Image, draw: ImageDraw.ImageDraw, x: int, y: int, na
     if idx == 0 and phase >= 2:
         status, border = "rejected", "#b42318"
     if idx == 1 and phase >= 3:
-        status, border = "candidate / global liked", "#0f766e"
-    rounded(draw, (x, y, x + 210, y + 292), "#ffffff", border, radius=8, width=2 if border != "#d9dde3" else 1)
-    draw.rectangle((x + 1, y + 1, x + 209, y + 137), fill="#ffffff")
+        status, border = "G liked", "#0f766e"
+    rounded(draw, (x, y, x + 210, y + 334), "#ffffff", border, radius=8, width=2 if border != "#d9dde3" else 1)
+    draw.rectangle((x + 1, y + 1, x + 209, y + 173), fill="#ffffff")
     if idx == 0 and phase >= 2:
         muted = Image.blend(image, Image.new("RGB", image.size, "#f4f4f4"), 0.55)
         canvas.paste(muted, (x + 2, y + 2))
-        draw.text((x + 60, y + 58), "G Reject", font=FONT["lg"], fill="#b42318")
+        draw.text((x + 60, y + 76), "G Reject", font=FONT["lg"], fill="#b42318")
     else:
         canvas.paste(image, (x + 2, y + 2))
-    draw.line((x, y + 138, x + 210, y + 138), fill="#d9dde3")
-    text(draw, (x + 14, y + 152), name, "lg")
-    rounded(draw, (x + 132, y + 151, x + 194, y + 174), "#f2f4f7", radius=12)
-    text(draw, (x + 146, y + 157), status[:12], "xs", "#667085")
-    text(draw, (x + 14, y + 184), "public repo | score 96.5", "sm", "#344054")
-    text(draw, (x + 14, y + 204), "style reference with source metadata", "sm", "#667085")
-    actions_y = y + 232
+    draw.line((x, y + 174, x + 210, y + 174), fill="#d9dde3")
+    text(draw, (x + 14, y + 190), name[:13], "base_b")
+    rounded(draw, (x + 136, y + 187, x + 194, y + 210), "#f2f4f7", radius=12)
+    text(draw, (x + 147, y + 193), status, "xs", "#667085")
+    text(draw, (x + 14, y + 220), "mini-atlas | score 80", "sm", "#344054")
+    text(draw, (x + 14, y + 240), "embedding reference", "sm", "#667085")
+    actions_y = y + 274
     labels = ["Like", "Reject", "Select", "Clear"]
     for i, label in enumerate(labels):
         draw_button(draw, (x + 12 + i * 48, actions_y, x + 54 + i * 48, actions_y + 28), label)
@@ -173,7 +173,7 @@ def render_frame(frame_index: int) -> Image.Image:
         text(draw, (310, 250), "Let the human teach preference once; let the agent reuse it.", "base", "#667085")
     else:
         for i, (name, image) in enumerate(PREVIEWS):
-            draw_card(frame, draw, 234 + i * 220, 130, name, image, i, phase)
+            draw_card(frame, draw, 230 + i * 218, 118, name, image, i, phase)
     cursor_paths = [(152, 356), (250, 362), (354, 406), (500, 406), (126, 404)]
     cx, cy = cursor_paths[phase]
     wiggle = (frame_index % 4) - 1

@@ -11,7 +11,7 @@ cd AgentFigureGallery
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .
-agentfiguregallery gallery --plot-type heatmap_matrix --limit 50 --serve
+agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve
 ```
 
 After `pip install -e .` finishes, tell your Codex/agent:
@@ -43,8 +43,8 @@ agent query -> gallery display -> human like/reject/select -> agent action
 Use the browser gallery to generate candidates by plot type, remove bad references globally, keep type-specific preferences, and export selected references for the agent that will write the final plotting code.
 
 ```bash
-agentfiguregallery query --task "Nature-style heatmap for pathway activity"
-agentfiguregallery gallery --plot-type bar_chart --limit 100 --serve
+agentfiguregallery query --task "Nature-style embedding map for cell atlas"
+agentfiguregallery gallery --plot-type embedding_plot --limit 100 --serve
 ```
 
 ## What Is Inside
