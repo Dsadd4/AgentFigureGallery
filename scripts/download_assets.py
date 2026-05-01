@@ -56,7 +56,13 @@ def is_placeholder_url(url: str) -> bool:
     return not url or url.startswith("TODO_") or "TODO_PUBLIC_URL" in url
 
 
-def download_one(url: str, target: Path, expected_sha256: str = "", force: bool = False) -> None:
+def download_one(
+    url: str,
+    target: Path,
+    expected_sha256: str = "",
+    force: bool = False,
+    headers: dict[str, str] | None = None,
+) -> None:
     target.parent.mkdir(parents=True, exist_ok=True)
 
     if target.exists() and not force:
@@ -68,21 +74,26 @@ def download_one(url: str, target: Path, expected_sha256: str = "", force: bool 
 
     part = target.with_suffix(target.suffix + ".part")
     resume_at = part.stat().st_size if part.exists() and not force else 0
-    headers = {}
+    request_headers = dict(headers or {})
+    request_headers.setdefault("User-Agent", "AgentFigureGallery/0.1")
     mode = "ab"
     if resume_at:
-        headers["Range"] = f"bytes={resume_at}-"
+        request_headers["Range"] = f"bytes={resume_at}-"
     else:
         mode = "wb"
 
-    request = Request(url, headers=headers)
+    request = Request(url, headers=request_headers)
     try:
-        with urlopen(request) as response, part.open(mode + "") as handle:
-            while True:
-                chunk = response.read(1024 * 1024)
-                if not chunk:
-                    break
-                handle.write(chunk)
+        with urlopen(request) as response:
+            if resume_at and response.getcode() == 200:
+                print(f"server ignored resume range, restarting: {target}")
+                mode = "wb"
+            with part.open(mode) as handle:
+                while True:
+                    chunk = response.read(1024 * 1024)
+                    if not chunk:
+                        break
+                    handle.write(chunk)
     except HTTPError as exc:
         if resume_at and exc.code == 416:
             pass
@@ -168,7 +179,13 @@ def main() -> int:
             if args.unpack or entry.get("unpack"):
                 print("  would unpack after download")
             continue
-        download_one(url, target, expected_sha256=expected_sha256, force=args.force)
+        download_one(
+            url,
+            target,
+            expected_sha256=expected_sha256,
+            force=args.force,
+            headers=entry.get("headers"),
+        )
         if args.unpack or entry.get("unpack"):
             unpack_archive(target, args.root)
 

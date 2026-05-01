@@ -14,6 +14,12 @@ agentfiguregallery setup --pack full-public --manifest-url https://huggingface.c
 agentfiguregallery gallery --plot-type heatmap_matrix --limit 50 --serve
 ```
 
+Fallback for environments where Hugging Face is not reachable:
+
+```bash
+agentfiguregallery setup --pack full-public --manifest manifests/resource_manifest.github-api.json
+```
+
 ## Storage Split
 
 ### GitHub
@@ -42,6 +48,10 @@ Recommended default for large public resources:
 Use a private Hugging Face Dataset only for the maintainer mirror:
 
 - `full-private`
+
+### GitHub Release Mirror
+
+Use GitHub Release assets as the public fallback when a server can reach the GitHub API and object store but cannot reach Hugging Face. The `full-public-v0.1.0` release stores the same split archives as the Hugging Face dataset, and `manifests/resource_manifest.github-api.json` points each entry at the GitHub release asset API endpoint.
 
 ### Zenodo
 
@@ -142,6 +152,12 @@ source-scripts/<archive-or-files>
 ```
 
 Do not put auth tokens into commands saved in shell scripts. Login interactively or use a short-lived environment variable outside the repository.
+
+Build the GitHub Release mirror manifest after uploading release assets:
+
+```bash
+python scripts/build_github_release_manifest.py --repo Dsadd4/AgentFigureGallery --tag full-public-v0.1.0
+```
 
 ## One-Command Setup
 

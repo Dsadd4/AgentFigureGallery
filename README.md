@@ -42,6 +42,12 @@ For the full public KB, keep the GitHub repo light and configure assets with one
 agentfiguregallery setup --pack full-public --manifest-url https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/resource_manifest.json
 ```
 
+If Hugging Face is blocked in the deployment environment, use the GitHub Release mirror manifest after cloning the repo:
+
+```bash
+agentfiguregallery setup --pack full-public --manifest manifests/resource_manifest.github-api.json
+```
+
 The extension workflow for other agents lives in `ExtendAgent/`.
 
 ## Public Repo Shape
@@ -96,3 +102,5 @@ See `docs/FULL_KB_DISTRIBUTION.md` for the upload and one-command setup plan.
 ## Current Local Baseline
 
 The development workspace currently has more than 16k selectable visual candidates across 10 plot types. This is enough to justify an external asset-pack design before publishing.
+
+The first full-public release is mirrored as GitHub Release assets under `full-public-v0.1.0` for environments where Hugging Face is not reachable.
