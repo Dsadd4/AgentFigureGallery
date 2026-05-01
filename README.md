@@ -1,22 +1,9 @@
 # AgentFigureGallery
 
-Human-in-the-loop visual reference memory for scientific plotting agents.
+Make plotting agents learn Nature, Cell, and Science figure taste in one minute.
+It turns real visual references plus human like/reject feedback into action-ready plotting guidance for upstream agents.
 
-AgentFigureGallery is built around one loop:
-
-```text
-agent query -> gallery display -> human like/reject/select -> agent action
-```
-
-The repository is not meant to be another plotting template dump. It is a compact controller for scientific figure agents:
-
-- query by task, plot type, subtype, motif, or design pattern
-- show real visual candidates before code is chosen
-- record local and global human preferences
-- export a bundle with selected references, source code paths, templates, palettes, and implementation notes
-- let an upstream agent act on the selected bundle
-
-## Target Quickstart
+## Install
 
 ```bash
 git clone https://github.com/Dsadd4/AgentFigureGallery.git
@@ -24,85 +11,47 @@ cd AgentFigureGallery
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .
-agentfiguregallery gallery --plot-type bar_chart --limit 50 --serve
+agentfiguregallery gallery --plot-type heatmap_matrix --limit 50 --serve
 ```
 
-The first public release should make the command above work end to end.
-
-The current development cut already includes a Glike-curated `minimal` pack:
-
-- 284 human-liked candidates after private-path filtering
-- 10 plot types represented
-- preview assets under `assets/packs/minimal/previews`
-- candidate index at `data/reference_candidate_index.json`
-
-For the full public KB, keep the GitHub repo light and configure assets with one command:
+Full public KB:
 
 ```bash
 agentfiguregallery setup --pack full-public --manifest-url https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/resource_manifest.json
 ```
 
-If Hugging Face is blocked in the deployment environment, use the GitHub Release mirror manifest after cloning the repo:
+Fallback when Hugging Face is blocked:
 
 ```bash
 agentfiguregallery setup --pack full-public --manifest manifests/resource_manifest.github-api.json
 ```
 
-The extension workflow for other agents lives in `ExtendAgent/`.
+## Dynamic Gallery
 
-## Public Repo Shape
+```text
+agent query -> gallery display -> human like/reject/select -> agent action
+```
 
-The GitHub repository should stay small and reproducible. Large preview packs, raw source repositories, and rendered corpora should live outside git and be fetched by manifest.
-
-Keep in git:
-
-- agent CLI and backend controller
-- reference gallery frontend
-- Codex skill wrapper
-- lightweight templates and examples
-- small manifest files
-- sampled reference index for smoke tests
-- docs for the agent-human-agent loop
-
-Keep out of git:
-
-- downloaded upstream repositories
-- full preview image cache
-- raw notebooks and raw data from source repos
-- long-running discovery outputs
-- local preference logs, unless intentionally published as a curated benchmark
-
-## Core Commands
-
-The public CLI should expose these verbs:
+Use the browser gallery to generate candidates by plot type, remove bad references globally, keep type-specific preferences, and export selected references for the agent that will write the final plotting code.
 
 ```bash
 agentfiguregallery query --task "Nature-style heatmap for pathway activity"
-agentfiguregallery gallery --plot-type heatmap_matrix --limit 50 --serve
-agentfiguregallery prefer --session outputs/reference_sessions/<id> --like HEAT-... --reject HEAT-...
-agentfiguregallery bundle --session outputs/reference_sessions/<id> --copy-scripts
-agentfiguregallery act --bundle outputs/reference_sessions/<id>/export_bundle/reference_bundle.json
+agentfiguregallery gallery --plot-type bar_chart --limit 100 --serve
 ```
 
-The internal implementation can keep the existing lower-level scripts. The public README should teach the loop, not the internals.
+## What Is Inside
 
-## Release Asset Strategy
+- 16,341 full-public visual candidates across 10 scientific plot types.
+- Glike-curated minimal pack committed for instant smoke tests.
+- Backend CLI, browser gallery, Codex skill wrapper, and agent expansion guide.
+- Candidate IDs, global/type-level preferences, and export bundles for agent handoff.
 
-Use named packs:
+## Search Keywords
 
-- `minimal`: tiny smoke-test pack, enough for CI and screenshots; this can live in git
-- `public-preview`: all curated preview images and candidate index files
-- `source-scripts`: script-only source excerpts needed for selected bundles
-- `full-corpus`: optional research corpus; never required for normal users
+`scientific-figures` `nature-style` `cell-style` `science-style` `plotting-agent` `ai-agent` `human-in-the-loop` `data-visualization` `bioinformatics` `matplotlib` `ggplot2` `reference-gallery`
 
-See `docs/RESOURCE_STRATEGY.md` and `manifests/resource_manifest.example.json`.
+## Docs
 
-See `docs/FULL_KB_DISTRIBUTION.md` for the upload and one-command setup plan.
-
-See `docs/REMOTE_FULL_VALIDATION.md` for the first remote full-public validation and the current network caveat for GitHub Release downloads on China/Huawei Cloud style hosts.
-
-## Current Local Baseline
-
-The development workspace currently has more than 16k selectable visual candidates across 10 plot types. This is enough to justify an external asset-pack design before publishing.
-
-The first full-public release is mirrored as GitHub Release assets under `full-public-v0.1.0` for environments where Hugging Face is not reachable.
+- `ExtendAgent/`: instructions for agents that expand the gallery.
+- `docs/FULL_KB_DISTRIBUTION.md`: public asset-pack strategy.
+- `docs/REMOTE_FULL_VALIDATION.md`: first remote full-public validation and current mirror-speed caveat.
