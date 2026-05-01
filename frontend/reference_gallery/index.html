@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Drawing Reference Gallery</title>
+    <link rel="stylesheet" href="/static/styles.css?v=like-scope-2" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">DR</div>
+          <div>
+            <h1>Reference Gallery</h1>
+            <p id="rootLabel">Drawing KB</p>
+          </div>
+        </div>
+
+        <section class="control-block">
+          <label for="sessionSelect">Session</label>
+          <select id="sessionSelect"></select>
+          <button id="reloadSessions" class="secondary">Refresh</button>
+        </section>
+
+        <section class="control-block">
+          <label for="plotType">Plot Type</label>
+          <select id="plotType">
+            <option value="bar_chart">bar_chart</option>
+            <option value="box_violin_distribution">box_violin_distribution</option>
+            <option value="heatmap_matrix">heatmap_matrix</option>
+            <option value="embedding_plot">embedding_plot</option>
+            <option value="scatter_plot">scatter_plot</option>
+            <option value="line_chart">line_chart</option>
+            <option value="benchmark_performance">benchmark_performance</option>
+            <option value="multi_panel_figure">multi_panel_figure</option>
+            <option value="spatial_map">spatial_map</option>
+            <option value="microscopy_panel">microscopy_panel</option>
+          </select>
+          <label for="candidateLimit">Count</label>
+          <input id="candidateLimit" type="number" min="12" max="200" step="4" value="100" />
+          <label for="strategySelect">Strategy</label>
+          <select id="strategySelect">
+            <option value="explore">Explore</option>
+            <option value="top">Top</option>
+            <option value="random">Random</option>
+          </select>
+          <label for="taskInput">Task</label>
+          <textarea id="taskInput" rows="3">Choose Nature-style references.</textarea>
+          <button id="generateSession">Generate</button>
+        </section>
+
+        <section class="control-block">
+          <button id="exportBundle">Export Bundle</button>
+          <button id="clearRejected" class="secondary">Clear Rejected</button>
+          <p id="message" class="message"></p>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <header class="toolbar">
+          <div>
+            <h2 id="sessionTitle">No session loaded</h2>
+            <p id="sessionMeta"></p>
+          </div>
+          <div class="filters">
+            <button class="filter active" data-filter="all">All <span id="countAll">0</span></button>
+            <button class="filter" data-filter="candidate">Open <span id="countCandidate">0</span></button>
+            <button class="filter" data-filter="liked">Type Liked <span id="countLiked">0</span></button>
+            <button class="filter" data-filter="global_liked">G Liked <span id="countGlobalLiked">0</span></button>
+            <button class="filter" data-filter="selected">Selected <span id="countSelected">0</span></button>
+            <button class="filter" data-filter="rejected">Rejected <span id="countRejected">0</span></button>
+          </div>
+        </header>
+
+        <div class="search-row">
+          <input id="searchInput" type="search" placeholder="Filter by id, repo, subtype, summary" />
+          <select id="sourceFilter">
+            <option value="all">All sources</option>
+          </select>
+        </div>
+
+        <section id="gallery" class="gallery"></section>
+      </section>
+    </main>
+
+    <script src="/static/app.js?v=like-scope-2"></script>
+  </body>
+</html>

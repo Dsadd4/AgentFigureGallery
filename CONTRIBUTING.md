@@ -1,0 +1,28 @@
+# Contributing
+
+AgentFigureGallery contributions should improve the agent-human-agent loop:
+
+```text
+agent query -> gallery display -> human select -> agent action
+```
+
+## Good Contributions
+
+- New public plotting sources with visible previews.
+- Better plot-type routing.
+- Better candidate metadata and source attribution.
+- Better preference-aware ranking.
+- Improvements to `ExtendAgent/` instructions.
+
+## Before Opening a PR
+
+Run:
+
+```bash
+python scripts/check_private_paths.py --root .
+python scripts/download_assets.py --pack minimal --dry-run
+agentfiguregallery query --plot-type heatmap_matrix --json
+```
+
+Do not commit tokens, local private paths, raw upstream repository mirrors, or large generated outputs.
+

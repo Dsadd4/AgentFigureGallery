@@ -1,0 +1,47 @@
+{
+  "version": "0.1.0",
+  "packs": [
+    {
+      "name": "minimal",
+      "description": "Glike-curated minimal pack committed with the repository.",
+      "entries": [
+        {
+          "path": "data/reference_candidate_index.json",
+          "url": "",
+          "sha256": "",
+          "size_bytes": 0,
+          "description": "Already included in the GitHub repository."
+        }
+      ]
+    },
+    {
+      "name": "public-preview",
+      "description": "Curated public preview pack for normal gallery use.",
+      "entries": [
+        {
+          "path": "assets/packs/public-preview/public-preview.tar.gz",
+          "url": "TODO_PUBLIC_URL/public-preview/public-preview.tar.gz",
+          "sha256": "",
+          "size_bytes": 0,
+          "description": "Private-filtered public preview archive.",
+          "unpack": true
+        }
+      ]
+    },
+    {
+      "name": "full-public",
+      "description": "Full public AgentFigureGallery KB without private-path candidates or raw upstream git mirrors.",
+      "entries": [
+        {
+          "path": "assets/packs/full-public/full-public.tar.gz",
+          "url": "TODO_PUBLIC_URL/full-public/full-public.tar.gz",
+          "sha256": "",
+          "size_bytes": 0,
+          "description": "Private-filtered full public KB archive.",
+          "unpack": true
+        }
+      ]
+    }
+  ]
+}
+

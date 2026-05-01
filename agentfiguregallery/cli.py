@@ -1,0 +1,165 @@
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+
+from .server import generate_session, run_server
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="agentfiguregallery")
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    query = subparsers.add_parser("query", help="Resolve a task or plot type to available candidate counts.")
+    query.add_argument("--task", default="")
+    query.add_argument("--plot-type", default="")
+    query.add_argument("--json", action="store_true")
+
+    gallery = subparsers.add_parser("gallery", help="Generate a reference session, optionally serving the UI.")
+    gallery.add_argument("--plot-type", required=True)
+    gallery.add_argument("--task", default="")
+    gallery.add_argument("--limit", type=int, default=50)
+    gallery.add_argument("--session-id", default="")
+    gallery.add_argument("--strategy", choices=["top", "explore", "random"], default="explore")
+    gallery.add_argument("--seed", type=int)
+    gallery.add_argument("--serve", action="store_true")
+    gallery.add_argument("--host", default="127.0.0.1")
+    gallery.add_argument("--port", type=int, default=8765)
+
+    serve = subparsers.add_parser("serve", help="Serve the local gallery UI.")
+    serve.add_argument("--host", default="127.0.0.1")
+    serve.add_argument("--port", type=int, default=8765)
+
+    setup = subparsers.add_parser("setup", help="Download and configure a full KB asset pack.")
+    setup.add_argument("--pack", default="public-preview")
+    setup.add_argument("--manifest", default="")
+    setup.add_argument("--manifest-url", default="")
+    setup.add_argument("--dry-run", action="store_true")
+    setup.add_argument("--force", action="store_true")
+
+    assets = subparsers.add_parser("assets", help="Asset utilities.")
+    assets_sub = assets.add_subparsers(dest="assets_command", required=True)
+    download = assets_sub.add_parser("download", help="Download an asset pack.")
+    download.add_argument("--pack", default="minimal")
+
+    return parser
+
+
+def root() -> Path:
+    return Path(__file__).resolve().parents[1]
+
+
+def load_index() -> dict:
+    path = root() / "data" / "reference_candidate_index.json"
+    if not path.exists():
+        return {"candidates": [], "summary": {}}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def infer_plot_type(task: str, explicit: str) -> str:
+    if explicit:
+        return explicit
+    text = task.lower()
+    hints = [
+        ("heatmap_matrix", ["heatmap", "matrix"]),
+        ("box_violin_distribution", ["box", "violin", "distribution"]),
+        ("bar_chart", ["bar", "column"]),
+        ("line_chart", ["line", "trend", "trajectory"]),
+        ("embedding_plot", ["umap", "tsne", "embedding"]),
+        ("scatter_plot", ["scatter", "correlation"]),
+        ("spatial_map", ["spatial", "tissue"]),
+        ("microscopy_panel", ["microscopy", "image", "segmentation"]),
+        ("benchmark_performance", ["benchmark", "performance", "accuracy"]),
+        ("multi_panel_figure", ["multi-panel", "multipanel", "panel"]),
+    ]
+    for plot_type, words in hints:
+        if any(word in text for word in words):
+            return plot_type
+    return "multi_panel_figure"
+
+
+def command_query(args: argparse.Namespace) -> int:
+    index = load_index()
+    plot_type = infer_plot_type(args.task, args.plot_type)
+    candidates = index.get("candidates", [])
+    counts: dict[str, int] = {}
+    for item in candidates:
+        key = item.get("plot_type") or item.get("primary_plot_type") or "unknown"
+        counts[key] = counts.get(key, 0) + 1
+    payload = {
+        "resolved": {"plot_type": plot_type},
+        "available_candidates": counts.get(plot_type, 0),
+        "selectable_by_plot_type": counts,
+    }
+    if args.json:
+        print(json.dumps(payload, indent=2, ensure_ascii=True))
+    else:
+        print(f"resolved plot_type: {plot_type}")
+        print(f"available candidates: {payload['available_candidates']}")
+    return 0
+
+
+def command_gallery(args: argparse.Namespace) -> int:
+    session = generate_session(
+        root=root(),
+        plot_type=args.plot_type,
+        task=args.task or f"Reference session for {args.plot_type}",
+        limit=args.limit,
+        session_id=args.session_id or "",
+        strategy=args.strategy,
+        seed=args.seed,
+    )
+    print(f"session: {session['session_id']}")
+    print(f"candidates: {len(session.get('candidates', []))}")
+    print(f"session_json: {session['paths']['session_json']}")
+    if args.serve:
+        run_server(root=root(), host=args.host, port=args.port)
+    return 0
+
+
+def command_assets(args: argparse.Namespace) -> int:
+    if args.assets_command != "download":
+        raise SystemExit(f"Unsupported assets command: {args.assets_command}")
+    import subprocess
+    import sys
+
+    script = root() / "scripts" / "download_assets.py"
+    return subprocess.call([sys.executable, str(script), "--pack", args.pack], cwd=root())
+
+
+def command_setup(args: argparse.Namespace) -> int:
+    import subprocess
+    import sys
+
+    script = root() / "scripts" / "setup_full_kb.py"
+    cmd = [sys.executable, str(script), "--pack", args.pack, "--root", str(root())]
+    if args.manifest_url:
+        cmd.extend(["--manifest-url", args.manifest_url])
+    if args.manifest:
+        cmd.extend(["--manifest", args.manifest])
+    if args.dry_run:
+        cmd.append("--dry-run")
+    if args.force:
+        cmd.append("--force")
+    return subprocess.call(cmd, cwd=root())
+
+
+def main() -> int:
+    parser = build_parser()
+    args = parser.parse_args()
+    if args.command == "query":
+        return command_query(args)
+    if args.command == "gallery":
+        return command_gallery(args)
+    if args.command == "serve":
+        return run_server(root=root(), host=args.host, port=args.port)
+    if args.command == "setup":
+        return command_setup(args)
+    if args.command == "assets":
+        return command_assets(args)
+    raise SystemExit(f"Unsupported command: {args.command}")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

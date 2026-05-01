@@ -1,0 +1,81 @@
+{
+  "version": "0.1.0",
+  "packs": [
+    {
+      "name": "minimal",
+      "description": "Tiny smoke-test pack with a few candidates per plot type.",
+      "entries": [
+        {
+          "path": "assets/packs/minimal/reference_candidate_index.sample.json",
+          "url": "TODO_PUBLIC_URL/minimal/reference_candidate_index.sample.json",
+          "sha256": "",
+          "size_bytes": 0,
+          "description": "Sample candidate index for CI and README demos."
+        }
+      ]
+    },
+    {
+      "name": "public-preview",
+      "description": "Curated public preview pack for normal gallery use.",
+      "entries": [
+        {
+          "path": "assets/packs/public-preview/reference_candidate_index.json",
+          "url": "TODO_PUBLIC_URL/public-preview/reference_candidate_index.json",
+          "sha256": "",
+          "size_bytes": 0,
+          "description": "Full curated candidate index."
+        },
+        {
+          "path": "assets/packs/public-preview/previews.tar.zst",
+          "url": "TODO_PUBLIC_URL/public-preview/previews.tar.zst",
+          "sha256": "",
+          "size_bytes": 0,
+          "description": "Preview image archive."
+        }
+      ]
+    },
+    {
+      "name": "source-scripts",
+      "description": "Sanitized script excerpts and source metadata used by selected reference bundles.",
+      "entries": [
+        {
+          "path": "assets/packs/source-scripts/source_scripts.tar.gz",
+          "url": "TODO_PUBLIC_URL/source-scripts/source_scripts.tar.gz",
+          "sha256": "",
+          "size_bytes": 0,
+          "description": "Sanitized source script archive.",
+          "unpack": true
+        }
+      ]
+    },
+    {
+      "name": "full-public",
+      "description": "Full public AgentFigureGallery KB without private-path candidates or raw upstream git mirrors.",
+      "entries": [
+        {
+          "path": "assets/packs/full-public/full_public_kb.tar.gz",
+          "url": "TODO_PUBLIC_URL/full-public/full_public_kb.tar.gz",
+          "sha256": "",
+          "size_bytes": 0,
+          "description": "Public full KB archive containing candidate index, facets, previews, templates, and ExtendAgent instructions.",
+          "unpack": true
+        }
+      ]
+    },
+    {
+      "name": "full-private",
+      "description": "Optional private maintainer mirror. Never use this for public GitHub releases.",
+      "private": true,
+      "entries": [
+        {
+          "path": "assets/packs/full-private/full_private_kb.tar.gz",
+          "url": "TODO_PRIVATE_URL/full-private/full_private_kb.tar.gz",
+          "sha256": "",
+          "size_bytes": 0,
+          "description": "Private full development mirror. Access requires an authenticated private storage location.",
+          "unpack": true
+        }
+      ]
+    }
+  ]
+}

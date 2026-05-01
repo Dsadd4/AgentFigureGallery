@@ -1,0 +1,29 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Runtime state
+outputs/
+sessions/
+preferences.local.json
+*.log
+.agentfiguregallery/
+
+# Downloaded assets and caches
+assets/downloads/
+assets/full-reference-pack/
+assets/packs/public-preview/
+assets/packs/source-scripts/
+assets/packs/full-corpus/
+assets/releases/
+repos/
+
+# Large generated preview/cache files should be shipped as release assets.
+data/reference_candidate_index.full.json
+data/reference_candidate_index.full.csv
+data/reference_candidate_previews/

@@ -1,0 +1,19 @@
+{
+  "schema_version": "agentfiguregallery.reference_candidate_facets.v1",
+  "generated_at": "2026-05-01T02:15:51.110024+00:00",
+  "candidate_count": 284,
+  "selectable_by_plot_type": {
+    "bar_chart": 30,
+    "benchmark_performance": 30,
+    "box_violin_distribution": 28,
+    "embedding_plot": 30,
+    "heatmap_matrix": 30,
+    "line_chart": 30,
+    "microscopy_panel": 19,
+    "multi_panel_figure": 30,
+    "scatter_plot": 30,
+    "spatial_map": 27
+  },
+  "pack": "minimal",
+  "curation_source": "global_like"
+}
