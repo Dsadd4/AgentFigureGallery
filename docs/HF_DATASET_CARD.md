@@ -49,11 +49,18 @@ agentfiguregallery setup --pack full-public --manifest-url https://huggingface.c
 agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve
 ```
 
+One-command Codex bootstrap:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Dsadd4/AgentFigureGallery/main/scripts/install.sh | bash
+```
+
 Optional agent installs:
 
 ```bash
 agentfiguregallery install-skill --target claude-code
 agentfiguregallery install-skill --target cursor
+agentfiguregallery install-cursor-rule --project /path/to/your-cursor-project
 ```
 
 ## Candidate Counts

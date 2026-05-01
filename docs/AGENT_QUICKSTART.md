@@ -12,6 +12,14 @@ Read skills/agent-figure-gallery/SKILL.md before acting.
 
 ## Minimal Flow
 
+One-command bootstrap:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Dsadd4/AgentFigureGallery/main/scripts/install.sh | bash
+```
+
+Manual flow:
+
 ```bash
 export AGENT_FIGURE_GALLERY_ROOT=/path/to/AgentFigureGallery
 agentfiguregallery doctor
@@ -47,6 +55,7 @@ outputs/reference_sessions/<session_id>/export_bundle/reference_bundle.json
 agentfiguregallery install-skill --target codex
 agentfiguregallery install-skill --target claude-code
 agentfiguregallery install-skill --target cursor
+agentfiguregallery install-cursor-rule --project /path/to/your-cursor-project
 ```
 
 This copies only the lightweight skill wrapper into the target agent's personal skill directory. The visual KB stays in the AgentFigureGallery clone and is located through `AGENT_FIGURE_GALLERY_ROOT`.
@@ -56,6 +65,7 @@ Default personal locations:
 - Codex: `~/.codex/skills/agent-figure-gallery`
 - Claude Code: `~/.claude/skills/agent-figure-gallery`
 - Cursor-compatible: `~/.cursor/skills/agent-figure-gallery`
+- Cursor Project Rule: `.cursor/rules/agent-figure-gallery.mdc` in the target project
 
 Project-local install is also available:
 
@@ -65,3 +75,11 @@ agentfiguregallery install-skill --target cursor --scope project
 ```
 
 Claude Code officially discovers project skills from `.claude/skills`. Cursor's official reusable instruction system is `.cursor/rules`; the Cursor target is provided as a SKILL.md-compatible bridge for users following the emerging Cursor skills convention.
+
+Bootstrap variants:
+
+```bash
+AFG_AGENT_TARGETS="codex claude-code cursor" bash scripts/install.sh
+AFG_CURSOR_PROJECT=/path/to/your-cursor-project AFG_AGENT_TARGETS="cursor" bash scripts/install.sh
+AFG_INSTALL_FULL_PUBLIC=1 bash scripts/install.sh
+```

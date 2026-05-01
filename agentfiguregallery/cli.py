@@ -58,6 +58,24 @@ def build_parser() -> argparse.ArgumentParser:
     install_skill.add_argument("--force", action="store_true", help="Replace an existing installed skill.")
     install_skill.add_argument("--json", action="store_true")
 
+    cursor_rule = subparsers.add_parser(
+        "install-cursor-rule",
+        help="Install a Cursor Project Rule that points Cursor Agent to AgentFigureGallery.",
+    )
+    cursor_rule.add_argument(
+        "--project",
+        type=Path,
+        default=Path.cwd(),
+        help="Project root that should receive .cursor/rules/agent-figure-gallery.mdc.",
+    )
+    cursor_rule.add_argument(
+        "--dest",
+        type=Path,
+        help="Destination Cursor rules directory. Defaults to <project>/.cursor/rules.",
+    )
+    cursor_rule.add_argument("--force", action="store_true", help="Replace an existing Cursor rule.")
+    cursor_rule.add_argument("--json", action="store_true")
+
     query = subparsers.add_parser("query", help="Resolve a task or plot type to available candidate counts.")
     query.add_argument("--task", default="")
     query.add_argument("--plot-type", default="")
@@ -143,6 +161,47 @@ def agent_prompt(target: str = "codex") -> str:
     )
 
 
+def cursor_rule_text(kb_root: Path) -> str:
+    return f"""---
+description: Use AgentFigureGallery before writing publication-quality scientific plotting code.
+alwaysApply: false
+---
+
+# AgentFigureGallery
+
+Use AgentFigureGallery when the user asks for a scientific plot, publication figure, Nature/Cell/Science-style visualization, or figure refinement.
+
+KB root:
+
+```bash
+export AGENT_FIGURE_GALLERY_ROOT={kb_root}
+```
+
+Workflow:
+
+1. Query references before writing final plotting code.
+2. Open a visible gallery for human like/reject/select feedback when visual taste matters.
+3. Export the selected reference bundle.
+4. Use selected candidate IDs and source metadata as visual/code guidance.
+
+Commands:
+
+```bash
+agentfiguregallery query --task "<user plotting task>"
+agentfiguregallery gallery --plot-type <plot_type> --task "<user plotting task>" --limit 50 --serve
+agentfiguregallery bundle --session <session_id>
+```
+
+Rules:
+
+- Preserve stable candidate IDs in notes and commit messages.
+- Treat `like` and `reject` as plot-type preferences.
+- Treat `global_like` and `global_reject` as reusable cross-task taste memory.
+- Do not use rejected or globally rejected references as style guidance.
+- If no reference fits, ask the human to reject weak candidates and generate another gallery.
+"""
+
+
 def load_index() -> dict:
     path = root() / "data" / "reference_candidate_index.json"
     if not path.exists():
@@ -198,6 +257,7 @@ def command_doctor(args: argparse.Namespace) -> int:
             "agentfiguregallery install-skill --target codex",
             "agentfiguregallery install-skill --target claude-code",
             "agentfiguregallery install-skill --target cursor",
+            "agentfiguregallery install-cursor-rule --project /path/to/your-cursor-project",
             "agentfiguregallery query --task \"Nature-style embedding map for cell atlas\"",
             "agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve",
             f"agentfiguregallery setup --pack full-public --manifest-url {hub_manifest_url}",
@@ -286,6 +346,50 @@ def command_install_skill(args: argparse.Namespace) -> int:
     else:
         print(f"skill {action}: {install_dir}")
         print(f"shell: {payload['shell']}")
+        print(f"prompt: {payload['prompt']}")
+    return 0
+
+
+def command_install_cursor_rule(args: argparse.Namespace) -> int:
+    kb_root = root()
+    project_root = args.project.expanduser().resolve()
+    rules_dir = (args.dest or (project_root / ".cursor" / "rules")).expanduser().resolve()
+    rule_path = rules_dir / "agent-figure-gallery.mdc"
+    action = "exists"
+
+    existed_before = rule_path.exists()
+    if existed_before and not args.force:
+        payload = {
+            "target": "cursor-rule",
+            "action": action,
+            "project": str(project_root),
+            "installed": str(rule_path),
+            "root": str(kb_root),
+            "prompt": "In Cursor, use the agent-figure-gallery project rule before writing publication figure code.",
+        }
+        if args.json:
+            print(json.dumps(payload, indent=2, ensure_ascii=True))
+        else:
+            print(f"Cursor rule already installed: {rule_path}")
+            print("refresh with: agentfiguregallery install-cursor-rule --force")
+            print(f"prompt: {payload['prompt']}")
+        return 0
+
+    rules_dir.mkdir(parents=True, exist_ok=True)
+    rule_path.write_text(cursor_rule_text(kb_root), encoding="utf-8")
+    action = "updated" if existed_before else "written"
+    payload = {
+        "target": "cursor-rule",
+        "action": action,
+        "project": str(project_root),
+        "installed": str(rule_path),
+        "root": str(kb_root),
+        "prompt": "In Cursor, use the agent-figure-gallery project rule before writing publication figure code.",
+    }
+    if args.json:
+        print(json.dumps(payload, indent=2, ensure_ascii=True))
+    else:
+        print(f"Cursor rule {action}: {rule_path}")
         print(f"prompt: {payload['prompt']}")
     return 0
 
@@ -428,6 +532,8 @@ def main() -> int:
         return command_doctor(args)
     if args.command == "install-skill":
         return command_install_skill(args)
+    if args.command == "install-cursor-rule":
+        return command_install_cursor_rule(args)
     if args.command == "query":
         return command_query(args)
     if args.command == "gallery":

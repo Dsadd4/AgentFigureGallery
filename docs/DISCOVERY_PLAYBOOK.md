@@ -21,7 +21,7 @@ Instead of asking an AI agent to invent a Nature/Cell/Science-style figure from 
 
 16k+ public scientific figure candidates.
 Dynamic browser gallery.
-One-command Codex, Claude Code, and Cursor-compatible skill install.
+One-command bootstrap plus Codex, Claude Code, and Cursor rule install.
 Global and plot-type preference memory.
 
 GitHub: https://github.com/Dsadd4/AgentFigureGallery
@@ -57,7 +57,7 @@ GitHub: https://github.com/Dsadd4/AgentFigureGallery
 ## Launch Checklist
 
 - README shows the GIF above installation.
-- README makes `agentfiguregallery install-skill --target codex` visible above the GIF, with Claude Code and Cursor-compatible commands nearby.
+- README makes the `curl ... install.sh | bash` bootstrap visible above the GIF, with Claude Code and Cursor rule commands nearby.
 - `agentfiguregallery doctor` passes after install.
 - Hugging Face dataset card is synced.
 - GitHub Actions is green.

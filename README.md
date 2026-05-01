@@ -8,13 +8,13 @@
 Make plotting agents learn Nature, Cell, and Science figure taste in one minute.
 It turns real visual references plus human like/reject feedback into action-ready plotting guidance for upstream agents.
 
-**One-command Codex skill install:**
+**One-command bootstrap for Codex:**
 
 ```bash
-agentfiguregallery install-skill --target codex
+curl -fsSL https://raw.githubusercontent.com/Dsadd4/AgentFigureGallery/main/scripts/install.sh | bash
 ```
 
-Clone once, run one command, and your coding agent learns to query a human-curated scientific figure gallery before writing plotting code. Claude Code and Cursor-compatible installs are also supported.
+Clone once, run one command, and your coding agent learns to query a human-curated scientific figure gallery before writing plotting code. Claude Code and Cursor rule installs are also supported.
 
 ![AgentFigureGallery dynamic demo](docs/assets/agentfiguregallery-demo.gif)
 
@@ -37,6 +37,12 @@ agentfiguregallery install-skill --target codex
 agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve
 ```
 
+Install all agent entrypoints:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Dsadd4/AgentFigureGallery/main/scripts/install.sh | AFG_AGENT_TARGETS="codex claude-code cursor" bash
+```
+
 ## For Agents
 
 After `pip install -e .` finishes, tell your Codex, Claude Code, Cursor, or other coding agent:
@@ -51,9 +57,10 @@ Or install the agent skill wrapper first:
 agentfiguregallery install-skill --target codex
 agentfiguregallery install-skill --target claude-code
 agentfiguregallery install-skill --target cursor
+agentfiguregallery install-cursor-rule --project /path/to/your-cursor-project
 ```
 
-Codex installs to `~/.codex/skills`, Claude Code installs to `~/.claude/skills`, and Cursor-compatible installs to `~/.cursor/skills`. See `docs/AGENT_QUICKSTART.md` and `examples/agent_prompt.md`.
+Codex installs to `~/.codex/skills`, Claude Code installs to `~/.claude/skills`, Cursor-compatible installs to `~/.cursor/skills`, and Cursor Project Rules install to `.cursor/rules/agent-figure-gallery.mdc`. See `docs/AGENT_QUICKSTART.md` and `examples/agent_prompt.md`.
 
 End-to-end examples:
 

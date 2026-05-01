@@ -23,7 +23,7 @@ Instead of asking an agent to invent a Nature/Cell/Science-style figure from tex
 
 16k+ public figure candidates.
 Dynamic browser gallery.
-One-command Codex, Claude Code, and Cursor-compatible skill install.
+One-command bootstrap plus Codex, Claude Code, and Cursor rule install.
 Global and plot-type preference memory.
 
 GitHub: https://github.com/Dsadd4/AgentFigureGallery
@@ -40,16 +40,20 @@ GitHub: https://github.com/Dsadd4/AgentFigureGallery
 
 ## Demo Script
 
-1. Open the README and show the GIF.
-2. Run:
+1. Run:
+   ```bash
+   curl -fsSL https://raw.githubusercontent.com/Dsadd4/AgentFigureGallery/main/scripts/install.sh | bash
+   ```
+2. Open the README and show the GIF.
+3. Run:
    ```bash
    agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve
    ```
-3. G Reject one bad image.
-4. G Like one strong image.
-5. Select one candidate.
-6. Export bundle.
-7. Tell the agent to implement a plot using the exported reference bundle.
+4. G Reject one bad image.
+5. G Like one strong image.
+6. Select one candidate.
+7. Export bundle.
+8. Tell the agent to implement a plot using the exported reference bundle.
 
 ## Social Preview
 
