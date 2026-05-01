@@ -21,6 +21,8 @@ Run:
 ```bash
 agentfiguregallery doctor
 agentfiguregallery install-skill --target codex --dest /tmp/afg-skills-test
+agentfiguregallery install-skill --target claude-code --dest /tmp/afg-claude-skills-test
+agentfiguregallery install-skill --target cursor --dest /tmp/afg-cursor-skills-test
 python scripts/check_private_paths.py --root .
 python scripts/download_assets.py --pack minimal --dry-run
 agentfiguregallery query --plot-type heatmap_matrix --json

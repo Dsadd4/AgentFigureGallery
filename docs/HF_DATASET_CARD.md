@@ -34,9 +34,9 @@ license: mit
 
 # AgentFigureGallery Full Public KB
 
-Full public visual reference pack for AgentFigureGallery, a human-preference memory system for scientific plotting agents.
+Full public visual reference pack for AgentFigureGallery, a human-preference memory system and installable agent skill for scientific plotting agents.
 
-The pack contains 16,341 public visual candidates across 10 scientific plot types, plus metadata needed by the AgentFigureGallery CLI and browser gallery.
+The pack contains 16,341 public visual candidates across 10 scientific plot types, plus metadata needed by the AgentFigureGallery CLI, browser gallery, and Codex / Claude Code / Cursor-compatible skill workflow.
 
 ## Use
 
@@ -44,8 +44,16 @@ The pack contains 16,341 public visual candidates across 10 scientific plot type
 git clone https://github.com/Dsadd4/AgentFigureGallery.git
 cd AgentFigureGallery
 pip install -e .
+agentfiguregallery install-skill --target codex
 agentfiguregallery setup --pack full-public --manifest-url https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/resource_manifest.json
 agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve
+```
+
+Optional agent installs:
+
+```bash
+agentfiguregallery install-skill --target claude-code
+agentfiguregallery install-skill --target cursor
 ```
 
 ## Candidate Counts
@@ -64,6 +72,12 @@ agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve
 ## Intended Use
 
 This dataset is intended for visual reference retrieval, human preference selection, and agent-guided scientific figure generation.
+
+Recommended loop:
+
+```text
+agent query -> gallery display -> human like/reject/select -> export bundle -> agent action
+```
 
 It is not intended as a benchmark for biological conclusions, image classification, or clinical decision making.
 

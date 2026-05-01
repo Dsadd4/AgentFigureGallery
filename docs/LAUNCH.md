@@ -4,7 +4,7 @@
 
 Teach your plotting agent Nature, Cell, and Science figure taste in one minute.
 
-Clone once, run one command, and your Codex learns to query a human-curated scientific figure gallery before writing plotting code.
+Clone once, run one command, and your coding agent learns to query a human-curated scientific figure gallery before writing plotting code.
 
 ## Short Launch Copy
 
@@ -23,7 +23,7 @@ Instead of asking an agent to invent a Nature/Cell/Science-style figure from tex
 
 16k+ public figure candidates.
 Dynamic browser gallery.
-One-command Codex skill install.
+One-command Codex, Claude Code, and Cursor-compatible skill install.
 Global and plot-type preference memory.
 
 GitHub: https://github.com/Dsadd4/AgentFigureGallery
@@ -51,10 +51,15 @@ GitHub: https://github.com/Dsadd4/AgentFigureGallery
 6. Export bundle.
 7. Tell the agent to implement a plot using the exported reference bundle.
 
+## Social Preview
+
+Use `docs/assets/agentfiguregallery-social-preview.png` as the GitHub repository social preview image. Pair it with the README GIF for posts on X, LinkedIn, Reddit, and bioinformatics/scientific-visualization awesome-list submissions.
+
 ## Launch Readiness
 
 - README has a two-line value proposition.
 - Demo GIF is visible above the fold.
+- GitHub social preview image is uploaded.
 - GitHub topics are configured.
 - Full-public pack has remote validation.
 - Hugging Face dataset card can be synced with `python scripts/upload_full_public_to_hf.py --card-only`.

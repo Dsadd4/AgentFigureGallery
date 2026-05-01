@@ -41,10 +41,27 @@ outputs/reference_sessions/<session_id>/export_bundle/reference_bundle.json
 - Treat `global_like` and `global_reject` as reusable cross-task taste memory.
 - If no reference fits, ask the human to reject bad candidates and generate another gallery.
 
-## Codex Skill Install
+## Agent Skill Install
 
 ```bash
 agentfiguregallery install-skill --target codex
+agentfiguregallery install-skill --target claude-code
+agentfiguregallery install-skill --target cursor
 ```
 
-This copies only the lightweight skill wrapper into `~/.codex/skills/agent-figure-gallery`. The visual KB stays in the AgentFigureGallery clone and is located through `AGENT_FIGURE_GALLERY_ROOT`.
+This copies only the lightweight skill wrapper into the target agent's personal skill directory. The visual KB stays in the AgentFigureGallery clone and is located through `AGENT_FIGURE_GALLERY_ROOT`.
+
+Default personal locations:
+
+- Codex: `~/.codex/skills/agent-figure-gallery`
+- Claude Code: `~/.claude/skills/agent-figure-gallery`
+- Cursor-compatible: `~/.cursor/skills/agent-figure-gallery`
+
+Project-local install is also available:
+
+```bash
+agentfiguregallery install-skill --target claude-code --scope project
+agentfiguregallery install-skill --target cursor --scope project
+```
+
+Claude Code officially discovers project skills from `.claude/skills`. Cursor's official reusable instruction system is `.cursor/rules`; the Cursor target is provided as a SKILL.md-compatible bridge for users following the emerging Cursor skills convention.

@@ -10,6 +10,30 @@ from . import __version__
 from .server import export_bundle, generate_session, resolve_session, run_server, update_preference
 
 
+SKILL_NAME = "agent-figure-gallery"
+INSTALL_TARGETS = ["codex", "claude-code", "cursor"]
+TARGET_LABELS = {
+    "codex": "Codex",
+    "claude-code": "Claude Code",
+    "cursor": "Cursor-compatible",
+}
+TARGET_HOME_ENV = {
+    "codex": "CODEX_HOME",
+    "claude-code": "CLAUDE_HOME",
+    "cursor": "CURSOR_HOME",
+}
+TARGET_HOME_SUBDIR = {
+    "codex": ".codex",
+    "claude-code": ".claude",
+    "cursor": ".cursor",
+}
+TARGET_PROJECT_SKILLS_DIR = {
+    "codex": Path(".codex") / "skills",
+    "claude-code": Path(".claude") / "skills",
+    "cursor": Path(".cursor") / "skills",
+}
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="agentfiguregallery")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -18,8 +42,18 @@ def build_parser() -> argparse.ArgumentParser:
     doctor.add_argument("--json", action="store_true")
 
     install_skill = subparsers.add_parser("install-skill", help="Install the lightweight agent skill wrapper.")
-    install_skill.add_argument("--target", choices=["codex"], default="codex")
-    install_skill.add_argument("--dest", type=Path, help="Destination skills directory. Defaults to ~/.codex/skills.")
+    install_skill.add_argument("--target", choices=INSTALL_TARGETS, default="codex")
+    install_skill.add_argument(
+        "--scope",
+        choices=["personal", "project"],
+        default="personal",
+        help="Install into the agent's personal skills directory or this project's skills directory.",
+    )
+    install_skill.add_argument(
+        "--dest",
+        type=Path,
+        help="Destination skills directory. Defaults to the selected target/scope location.",
+    )
     install_skill.add_argument("--mode", choices=["copy", "symlink"], default="copy")
     install_skill.add_argument("--force", action="store_true", help="Replace an existing installed skill.")
     install_skill.add_argument("--json", action="store_true")
@@ -86,19 +120,27 @@ def flatten_ids(groups: list[list[str]]) -> list[str]:
     return [candidate_id for group in groups for candidate_id in group]
 
 
-def codex_skills_dir() -> Path:
-    codex_home = os.environ.get("CODEX_HOME")
-    if codex_home:
-        return Path(codex_home).expanduser().resolve() / "skills"
-    return Path.home() / ".codex" / "skills"
+def skills_dir(target: str, scope: str = "personal") -> Path:
+    if target not in INSTALL_TARGETS:
+        raise ValueError(f"Unsupported install target: {target}")
+    if scope == "project":
+        return Path.cwd().resolve() / TARGET_PROJECT_SKILLS_DIR[target]
+    home_env = os.environ.get(TARGET_HOME_ENV[target])
+    if home_env:
+        return Path(home_env).expanduser().resolve() / "skills"
+    return Path.home() / TARGET_HOME_SUBDIR[target] / "skills"
 
 
 def skill_source_dir(kb_root: Path) -> Path:
     return kb_root / "skills" / "agent-figure-gallery"
 
 
-def agent_prompt() -> str:
-    return "Read the agent-figure-gallery skill, then use AgentFigureGallery before writing publication figure code."
+def agent_prompt(target: str = "codex") -> str:
+    label = TARGET_LABELS.get(target, target)
+    return (
+        f"In {label}, read the agent-figure-gallery skill, then use AgentFigureGallery "
+        "before writing publication figure code."
+    )
 
 
 def load_index() -> dict:
@@ -120,7 +162,15 @@ def command_doctor(args: argparse.Namespace) -> int:
     kb_root = root()
     index_path = kb_root / "data" / "reference_candidate_index.json"
     skill_path = skill_source_dir(kb_root) / "SKILL.md"
-    codex_skill_path = codex_skills_dir() / "agent-figure-gallery" / "SKILL.md"
+    agent_skills = {
+        target: {
+            "label": TARGET_LABELS[target],
+            "installed": (skills_dir(target) / SKILL_NAME / "SKILL.md").exists(),
+            "path": str(skills_dir(target) / SKILL_NAME / "SKILL.md"),
+            "scope": "personal",
+        }
+        for target in INSTALL_TARGETS
+    }
     frontend_path = kb_root / "frontend" / "reference_gallery" / "index.html"
     manifest_path = kb_root / "manifests" / "resource_manifest.json"
     hub_manifest_url = "https://huggingface.co/datasets/dsadd4/AgentFigureGallery/resolve/main/resource_manifest.json"
@@ -142,12 +192,12 @@ def command_doctor(args: argparse.Namespace) -> int:
         "candidate_total": len(candidates),
         "plot_type_counts": counts,
         "agent_skill": str(skill_path),
-        "codex_skill": {
-            "installed": codex_skill_path.exists(),
-            "path": str(codex_skill_path),
-        },
+        "agent_skills": agent_skills,
+        "codex_skill": agent_skills["codex"],
         "recommended_commands": [
             "agentfiguregallery install-skill --target codex",
+            "agentfiguregallery install-skill --target claude-code",
+            "agentfiguregallery install-skill --target cursor",
             "agentfiguregallery query --task \"Nature-style embedding map for cell atlas\"",
             "agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve",
             f"agentfiguregallery setup --pack full-public --manifest-url {hub_manifest_url}",
@@ -166,8 +216,9 @@ def command_doctor(args: argparse.Namespace) -> int:
             for plot_type, count in counts.items():
                 print(f"  {plot_type}: {count}")
         print(f"agent_skill: {payload['agent_skill']}")
-        installed = payload["codex_skill"]["installed"]
-        print(f"{'OK' if installed else 'MISSING'} codex_skill: {payload['codex_skill']['path']}")
+        for target, skill in payload["agent_skills"].items():
+            installed = skill["installed"]
+            print(f"{'OK' if installed else 'MISSING'} {target}_skill: {skill['path']}")
         print("next:")
         for command in payload["recommended_commands"]:
             print(f"  {command}")
@@ -180,7 +231,7 @@ def command_install_skill(args: argparse.Namespace) -> int:
     if not (source_dir / "SKILL.md").exists():
         raise SystemExit(f"Missing skill source: {source_dir}")
 
-    dest_dir = (args.dest or codex_skills_dir()).expanduser().resolve()
+    dest_dir = (args.dest or skills_dir(args.target, args.scope)).expanduser().resolve()
     install_dir = dest_dir / source_dir.name
     action = "exists"
 
@@ -193,18 +244,20 @@ def command_install_skill(args: argparse.Namespace) -> int:
         else:
             payload = {
                 "target": args.target,
+                "target_label": TARGET_LABELS[args.target],
+                "scope": args.scope,
                 "action": action,
                 "source": str(source_dir),
                 "installed": str(install_dir),
                 "root": str(kb_root),
                 "shell": f"export AGENT_FIGURE_GALLERY_ROOT={kb_root}",
-                "prompt": agent_prompt(),
+                "prompt": agent_prompt(args.target),
             }
             if args.json:
                 print(json.dumps(payload, indent=2, ensure_ascii=True))
             else:
                 print(f"skill already installed: {install_dir}")
-                print("refresh with: agentfiguregallery install-skill --target codex --force")
+                print(f"refresh with: agentfiguregallery install-skill --target {args.target} --force")
                 print(f"shell: {payload['shell']}")
                 print(f"prompt: {payload['prompt']}")
             return 0
@@ -219,12 +272,14 @@ def command_install_skill(args: argparse.Namespace) -> int:
 
     payload = {
         "target": args.target,
+        "target_label": TARGET_LABELS[args.target],
+        "scope": args.scope,
         "action": action,
         "source": str(source_dir),
         "installed": str(install_dir),
         "root": str(kb_root),
         "shell": f"export AGENT_FIGURE_GALLERY_ROOT={kb_root}",
-        "prompt": agent_prompt(),
+        "prompt": agent_prompt(args.target),
     }
     if args.json:
         print(json.dumps(payload, indent=2, ensure_ascii=True))

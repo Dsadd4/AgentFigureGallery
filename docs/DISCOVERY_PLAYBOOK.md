@@ -9,7 +9,7 @@ Teach your plotting agent Nature, Cell, and Science figure taste in one minute.
 ```
 
 ```text
-Clone once, run one command, and your Codex learns to query a human-curated scientific figure gallery before writing plotting code.
+Clone once, run one command, and your coding agent learns to query a human-curated scientific figure gallery before writing plotting code.
 ```
 
 ## Share Copy
@@ -21,7 +21,7 @@ Instead of asking an AI agent to invent a Nature/Cell/Science-style figure from 
 
 16k+ public scientific figure candidates.
 Dynamic browser gallery.
-One-command Codex skill install.
+One-command Codex, Claude Code, and Cursor-compatible skill install.
 Global and plot-type preference memory.
 
 GitHub: https://github.com/Dsadd4/AgentFigureGallery
@@ -39,9 +39,10 @@ GitHub: https://github.com/Dsadd4/AgentFigureGallery
 
 ## GitHub Metadata
 
-- Description: `Codex-ready human-in-the-loop visual reference memory for scientific plotting agents.`
+- Description: `Codex and Claude-ready human-in-the-loop visual reference memory for scientific plotting agents.`
 - Homepage: `https://huggingface.co/datasets/dsadd4/AgentFigureGallery`
 - Topics: keep `agent-tools`, `ai-agent`, `agent-skill`, `skill`, `codex`, `claude-code`, `cursor`, `llm-agents`, `human-in-the-loop`, `plotting-agent`, `scientific-figures`, `scientific-visualization`, `data-visualization`, `bioinformatics`, `matplotlib`, `ggplot2`, `reference-gallery`, `nature-style`, `cell-style`, `science-style`.
+- Social preview: upload `docs/assets/agentfiguregallery-social-preview.png` in GitHub repository settings. GitHub recommends at least 640 x 320 px, with 1280 x 640 px for best display.
 
 ## Roadmap Issues To Keep Open
 
@@ -56,7 +57,7 @@ GitHub: https://github.com/Dsadd4/AgentFigureGallery
 ## Launch Checklist
 
 - README shows the GIF above installation.
-- README makes `agentfiguregallery install-skill --target codex` visible above the GIF.
+- README makes `agentfiguregallery install-skill --target codex` visible above the GIF, with Claude Code and Cursor-compatible commands nearby.
 - `agentfiguregallery doctor` passes after install.
 - Hugging Face dataset card is synced.
 - GitHub Actions is green.

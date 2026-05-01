@@ -14,7 +14,7 @@ It turns real visual references plus human like/reject feedback into action-read
 agentfiguregallery install-skill --target codex
 ```
 
-Clone once, run one command, and your Codex learns to query a human-curated scientific figure gallery before writing plotting code.
+Clone once, run one command, and your coding agent learns to query a human-curated scientific figure gallery before writing plotting code. Claude Code and Cursor-compatible installs are also supported.
 
 ![AgentFigureGallery dynamic demo](docs/assets/agentfiguregallery-demo.gif)
 
@@ -45,18 +45,21 @@ After `pip install -e .` finishes, tell your Codex, Claude Code, Cursor, or othe
 Read skills/agent-figure-gallery/SKILL.md, then use AgentFigureGallery before writing publication figure code.
 ```
 
-Or install the Codex skill wrapper first:
+Or install the agent skill wrapper first:
 
 ```bash
 agentfiguregallery install-skill --target codex
+agentfiguregallery install-skill --target claude-code
+agentfiguregallery install-skill --target cursor
 ```
 
-See `docs/AGENT_QUICKSTART.md` and `examples/agent_prompt.md`.
+Codex installs to `~/.codex/skills`, Claude Code installs to `~/.claude/skills`, and Cursor-compatible installs to `~/.cursor/skills`. See `docs/AGENT_QUICKSTART.md` and `examples/agent_prompt.md`.
 
 End-to-end examples:
 
 - `examples/end_to_end_embedding.md`
 - `examples/generated_embedding_plot/README.md`
+- `examples/before_after_benchmark/README.md`
 
 Full public KB:
 
@@ -95,12 +98,14 @@ Completed proof point:
 
 - [One-command Codex skill install](https://github.com/Dsadd4/AgentFigureGallery/issues/1)
 - [Generated embedding plot from a reference bundle](examples/generated_embedding_plot/README.md)
+- [Before/after benchmark: prompt-only vs reference-guided plotting](examples/before_after_benchmark/README.md)
 
 ## Docs
 
 - `ExtendAgent/`: instructions for agents that expand the gallery.
 - `docs/AGENT_QUICKSTART.md`: minimal instructions for coding agents.
 - `docs/DISCOVERY_PLAYBOOK.md`: launch and star-growth checklist.
+- `docs/HF_SYNC.md`: Hugging Face dataset card and asset sync commands.
 - `docs/PYPI_RELEASE.md`: Python package release path.
 - `docs/HF_DATASET_CARD.md`: Hugging Face dataset card draft.
 - `docs/LAUNCH.md`: public launch copy and channels.
