@@ -32,7 +32,7 @@ Fallback when Hugging Face is blocked:
 agentfiguregallery setup --pack full-public --manifest manifests/resource_manifest.github-api.json
 ```
 
-## Dynamic Gallery
+## Dynamic Gallery: Human-Preference Evolution Loop
 
 ![AgentFigureGallery dynamic demo](docs/assets/agentfiguregallery-demo.gif)
 
@@ -40,7 +40,7 @@ agentfiguregallery setup --pack full-public --manifest manifests/resource_manife
 agent query -> gallery display -> human like/reject/select -> agent action
 ```
 
-Use the browser gallery to generate candidates by plot type, remove bad references globally, keep type-specific preferences, and export selected references for the agent that will write the final plotting code.
+Use the browser gallery to generate candidates by plot type, remove bad references globally, keep type-specific preferences, and export selected references for the agent that will write the final plotting code. Every like/reject becomes reusable taste memory, so the system gets sharper as humans and agents keep using it.
 
 ```bash
 agentfiguregallery query --task "Nature-style embedding map for cell atlas"
