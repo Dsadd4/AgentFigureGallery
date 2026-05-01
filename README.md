@@ -99,6 +99,8 @@ See `docs/RESOURCE_STRATEGY.md` and `manifests/resource_manifest.example.json`.
 
 See `docs/FULL_KB_DISTRIBUTION.md` for the upload and one-command setup plan.
 
+See `docs/REMOTE_FULL_VALIDATION.md` for the first remote full-public validation and the current network caveat for GitHub Release downloads on China/Huawei Cloud style hosts.
+
 ## Current Local Baseline
 
 The development workspace currently has more than 16k selectable visual candidates across 10 plot types. This is enough to justify an external asset-pack design before publishing.
