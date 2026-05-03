@@ -39,7 +39,7 @@ GitHub: https://github.com/Dsadd4/AgentFigureGallery
 
 ## GitHub Metadata
 
-- Description: `Codex and Claude-ready human-in-the-loop visual reference memory for scientific plotting agents.`
+- Description: `Drop-in scientific plotting skill for Claude Code, Codex, Cursor, and other coding agents.`
 - Homepage: `https://huggingface.co/datasets/dsadd4/AgentFigureGallery`
 - Topics: keep `agent-tools`, `ai-agent`, `agent-skill`, `skill`, `codex`, `claude-code`, `cursor`, `llm-agents`, `human-in-the-loop`, `plotting-agent`, `scientific-figures`, `scientific-visualization`, `data-visualization`, `bioinformatics`, `matplotlib`, `ggplot2`, `reference-gallery`, `nature-style`, `cell-style`, `science-style`.
 - Social preview: upload `docs/assets/agentfiguregallery-social-preview.png` in GitHub repository settings. GitHub recommends at least 640 x 320 px, with 1280 x 640 px for best display.

@@ -1,0 +1,17 @@
+metric,method,score,sem
+Top-1,Baseline,22.1,1.1
+Top-5,Baseline,38.0,1.3
+Top-10,Baseline,47.6,1.5
+Top-20,Baseline,57.4,1.4
+Top-1,AtlasNet,27.8,1.0
+Top-5,AtlasNet,44.5,1.2
+Top-10,AtlasNet,54.0,1.2
+Top-20,AtlasNet,63.1,1.3
+Top-1,AgentFit,30.4,1.0
+Top-5,AgentFit,48.8,1.1
+Top-10,AgentFit,58.1,1.1
+Top-20,AgentFit,67.3,1.2
+Top-1,AgentFit + RT,33.1,0.9
+Top-5,AgentFit + RT,51.2,1.0
+Top-10,AgentFit + RT,61.0,1.1
+Top-20,AgentFit + RT,70.2,1.0

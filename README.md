@@ -5,8 +5,8 @@
 [![Full KB](https://img.shields.io/badge/full--public-16k%2B%20references-0f766e.svg)](docs/REMOTE_FULL_VALIDATION.md)
 [![Hugging Face Dataset](https://img.shields.io/badge/Hugging%20Face-dataset-ffcc00.svg)](https://huggingface.co/datasets/dsadd4/AgentFigureGallery)
 
-Make plotting agents learn Nature, Cell, and Science figure taste in one minute.
-It turns real visual references plus human like/reject feedback into action-ready plotting guidance for upstream agents.
+AgentFigureGallery is a drop-in scientific plotting skill for Claude Code, Codex, Cursor, and other coding agents.
+It turns real visual references plus human like/reject feedback into action-ready plotting guidance before code is written.
 
 **One-command bootstrap for Codex:**
 
@@ -14,7 +14,7 @@ It turns real visual references plus human like/reject feedback into action-read
 curl -fsSL https://raw.githubusercontent.com/Dsadd4/AgentFigureGallery/main/scripts/install.sh | bash
 ```
 
-Clone once, run one command, and your coding agent learns to query a human-curated scientific figure gallery before writing plotting code. Claude Code and Cursor rule installs are also supported.
+Clone once, run one command, and your coding agent gets a human-curated scientific figure gallery before writing plotting code. Codex, Claude Code, and Cursor-compatible installs are supported.
 
 ![AgentFigureGallery dynamic demo](docs/assets/agentfiguregallery-demo.gif)
 
@@ -23,6 +23,14 @@ agent query -> gallery display -> human like/reject/select -> agent action
 ```
 
 AgentFigureGallery helps coding agents stop guessing what a publication figure should look like. The agent queries visual references first, the human marks taste preferences in a browser gallery, and the selected references are exported as an action bundle before plotting code is written.
+
+## Codex Skill Smoke Test
+
+After installing the Codex skill, AgentFigureGallery can render one Nature-style smoke example for every supported plot type.
+
+![AgentFigureGallery plot-type smoke examples](examples/plot_type_examples/figures/agentfiguregallery_plot_type_examples_preview.png)
+
+See `examples/plot_type_examples/` for the runnable script, source data, and PNG/PDF/SVG outputs.
 
 ## Install
 
@@ -93,6 +101,7 @@ agentfiguregallery gallery --plot-type embedding_plot --limit 100 --serve
 
 - 16,341 full-public visual candidates across 10 scientific plot types.
 - Glike-curated minimal pack committed for instant smoke tests.
+- Codex-equipped plot-type smoke examples with PNG/PDF/SVG outputs.
 - Backend CLI, browser gallery, Codex skill wrapper, and agent expansion guide.
 - Candidate IDs, global/type-level preferences, and export bundles for agent handoff.
 

@@ -1,0 +1,57 @@
+{
+  "description": "Codex-equipped AgentFigureGallery skill smoke test: one Nature-style example for each supported plot type.",
+  "plot_types": {
+    "bar_chart": {
+      "png": "examples/plot_type_examples/figures/bar_chart_example.png",
+      "pdf": "examples/plot_type_examples/figures/bar_chart_example.pdf",
+      "svg": "examples/plot_type_examples/figures/bar_chart_example.svg"
+    },
+    "benchmark_performance": {
+      "png": "examples/plot_type_examples/figures/benchmark_performance_example.png",
+      "pdf": "examples/plot_type_examples/figures/benchmark_performance_example.pdf",
+      "svg": "examples/plot_type_examples/figures/benchmark_performance_example.svg"
+    },
+    "box_violin_distribution": {
+      "png": "examples/plot_type_examples/figures/box_violin_distribution_example.png",
+      "pdf": "examples/plot_type_examples/figures/box_violin_distribution_example.pdf",
+      "svg": "examples/plot_type_examples/figures/box_violin_distribution_example.svg"
+    },
+    "embedding_plot": {
+      "png": "examples/plot_type_examples/figures/embedding_plot_example.png",
+      "pdf": "examples/plot_type_examples/figures/embedding_plot_example.pdf",
+      "svg": "examples/plot_type_examples/figures/embedding_plot_example.svg"
+    },
+    "heatmap_matrix": {
+      "png": "examples/plot_type_examples/figures/heatmap_matrix_example.png",
+      "pdf": "examples/plot_type_examples/figures/heatmap_matrix_example.pdf",
+      "svg": "examples/plot_type_examples/figures/heatmap_matrix_example.svg"
+    },
+    "line_chart": {
+      "png": "examples/plot_type_examples/figures/line_chart_example.png",
+      "pdf": "examples/plot_type_examples/figures/line_chart_example.pdf",
+      "svg": "examples/plot_type_examples/figures/line_chart_example.svg"
+    },
+    "microscopy_panel": {
+      "png": "examples/plot_type_examples/figures/microscopy_panel_example.png",
+      "pdf": "examples/plot_type_examples/figures/microscopy_panel_example.pdf",
+      "svg": "examples/plot_type_examples/figures/microscopy_panel_example.svg"
+    },
+    "scatter_plot": {
+      "png": "examples/plot_type_examples/figures/scatter_plot_example.png",
+      "pdf": "examples/plot_type_examples/figures/scatter_plot_example.pdf",
+      "svg": "examples/plot_type_examples/figures/scatter_plot_example.svg"
+    },
+    "spatial_map": {
+      "png": "examples/plot_type_examples/figures/spatial_map_example.png",
+      "pdf": "examples/plot_type_examples/figures/spatial_map_example.pdf",
+      "svg": "examples/plot_type_examples/figures/spatial_map_example.svg"
+    },
+    "multi_panel_figure": {
+      "png": "examples/plot_type_examples/figures/multi_panel_figure_example.png",
+      "pdf": "examples/plot_type_examples/figures/multi_panel_figure_example.pdf",
+      "svg": "examples/plot_type_examples/figures/multi_panel_figure_example.svg"
+    }
+  },
+  "preview_png": "examples/plot_type_examples/figures/agentfiguregallery_plot_type_examples_preview.png",
+  "source_data_dir": "examples/plot_type_examples/source_data"
+}

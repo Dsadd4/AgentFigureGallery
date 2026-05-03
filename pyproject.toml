@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "agentfiguregallery"
 version = "0.1.0"
-description = "Nature, Cell, and Science style visual reference memory for plotting agents."
+description = "Drop-in scientific plotting skill for Claude Code, Codex, Cursor, and other coding agents."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"

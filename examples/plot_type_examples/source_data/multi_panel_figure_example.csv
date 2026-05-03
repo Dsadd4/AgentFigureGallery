@@ -1,0 +1,6 @@
+panel,source_png,title
+a,examples/plot_type_examples/figures/embedding_plot_example.png,Embedding overview
+b,examples/plot_type_examples/figures/benchmark_performance_example.png,Benchmark snapshot
+c,examples/plot_type_examples/figures/heatmap_matrix_example.png,Expression matrix
+d,examples/plot_type_examples/figures/microscopy_panel_example.png,Microscopy evidence
+e,,Assembly notes

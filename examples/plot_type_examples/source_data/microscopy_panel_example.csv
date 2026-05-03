@@ -1,0 +1,2 @@
+asset,height,width,channels
+synthetic_microscopy,256,256,"DAPI,CD8,Ki67,boundary"
