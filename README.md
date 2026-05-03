@@ -30,7 +30,13 @@ After installing the Codex skill, Codex can discover AgentFigureGallery as a loc
 
 ![Codex discovered Agent Figure Gallery](examples/plot_type_examples/screenshots/codex-skill-discovered.png)
 
-From there, AgentFigureGallery can render one Nature-style smoke example for every supported plot type.
+Then ask your coding agent to run a plot-type smoke test:
+
+```text
+Use AgentFigureGallery to test your installed plotting skill. Generate one Nature-style example for each supported plot type, then export PNG/PDF/SVG and a combined preview.
+```
+
+The result should look like this: one Nature-style smoke example for every supported plot type.
 
 ![AgentFigureGallery plot-type smoke examples](examples/plot_type_examples/figures/agentfiguregallery_plot_type_examples_preview.png)
 
