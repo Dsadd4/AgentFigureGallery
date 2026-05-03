@@ -643,6 +643,9 @@ def main() -> int:
         "description": "Codex-equipped AgentFigureGallery skill smoke test: one Nature-style example for each supported plot type.",
         "plot_types": plot_types,
         "preview_png": repo_relative(preview),
+        "screenshots": {
+            "codex_skill_discovered": repo_relative(EXAMPLE_DIR / "screenshots" / "codex-skill-discovered.png")
+        },
         "source_data_dir": repo_relative(DATA_DIR),
     }
     manifest_path = EXAMPLE_DIR / "manifest.json"

@@ -53,5 +53,8 @@
     }
   },
   "preview_png": "examples/plot_type_examples/figures/agentfiguregallery_plot_type_examples_preview.png",
+  "screenshots": {
+    "codex_skill_discovered": "examples/plot_type_examples/screenshots/codex-skill-discovered.png"
+  },
   "source_data_dir": "examples/plot_type_examples/source_data"
 }

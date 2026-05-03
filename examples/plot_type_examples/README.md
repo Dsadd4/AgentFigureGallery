@@ -4,6 +4,12 @@ This example captures a small toy test run immediately after Codex was equipped 
 
 The test asks the agent to verify the skill, then render one Nature-style smoke example for every supported AgentFigureGallery plot type. It is intentionally synthetic and lightweight, but it exercises the same practical claim as the full workflow: the agent can move from installed skill and plot-type awareness to publication-style figure outputs.
 
+## Codex Skill Discovery
+
+The smoke test starts from Codex being able to discover the installed local skill.
+
+![Codex discovered Agent Figure Gallery](screenshots/codex-skill-discovered.png)
+
 ## Preview
 
 ![AgentFigureGallery plot-type smoke examples](figures/agentfiguregallery_plot_type_examples_preview.png)
