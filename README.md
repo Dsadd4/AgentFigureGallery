@@ -26,7 +26,11 @@ AgentFigureGallery helps coding agents stop guessing what a publication figure s
 
 ## Codex Skill Smoke Test
 
-After installing the Codex skill, AgentFigureGallery can render one Nature-style smoke example for every supported plot type.
+After installing the Codex skill, Codex can discover AgentFigureGallery as a local skill.
+
+![Codex discovered Agent Figure Gallery](examples/plot_type_examples/screenshots/codex-skill-discovered.png)
+
+From there, AgentFigureGallery can render one Nature-style smoke example for every supported plot type.
 
 ![AgentFigureGallery plot-type smoke examples](examples/plot_type_examples/figures/agentfiguregallery_plot_type_examples_preview.png)
 
