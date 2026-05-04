@@ -23,6 +23,7 @@ agent query -> gallery display -> human like/reject/select -> agent action
 ```
 
 AgentFigureGallery helps coding agents stop guessing what a publication figure should look like. The agent queries visual references first, the human marks taste preferences in a browser gallery, and the selected references are exported as an action bundle before plotting code is written.
+With the 16k+ full-public reference pool, that browser gallery becomes a routine taste-tuning loop: launch it often, like/reject/select references, and gradually adapt the skill to your personal or lab-specific figure preferences.
 
 ## Codex Skill Smoke Test
 
@@ -52,7 +53,21 @@ source .venv/bin/activate
 pip install -e .
 agentfiguregallery doctor
 agentfiguregallery install-skill --target codex
+```
+
+Launch the browser gallery UI after install to refine your personal gallery:
+
+```bash
 agentfiguregallery gallery --plot-type embedding_plot --limit 50 --serve
+# Then open http://127.0.0.1:8765/
+```
+
+Use it routinely to browse the reference pool and record like/reject/select feedback; those preferences become reusable taste memory for future agent plotting tasks. After your agent expands the gallery, or after you drop new visible references into a local pack, relaunch the gallery and keep refining the same preference memory.
+
+To reopen the frontend later without creating a new reference session:
+
+```bash
+agentfiguregallery serve --host 127.0.0.1 --port 8765
 ```
 
 Install all agent entrypoints:
@@ -100,16 +115,37 @@ agentfiguregallery setup --pack full-public --manifest manifests/resource_manife
 
 ## Dynamic Gallery
 
-Use the browser gallery to generate candidates by plot type, remove bad references globally, keep type-specific preferences, and export selected references for the agent that will write the final plotting code. Every like/reject becomes reusable taste memory, so the system gets sharper as humans and agents keep using it.
+Use the browser gallery to generate candidates by plot type from the 16,341-candidate full-public KB, remove bad references globally, keep type-specific preferences, and export selected references for the agent that will write the final plotting code. Every like/reject becomes reusable taste memory, so the skill gets closer to your visual taste as humans and agents keep using it.
 
 ```bash
 agentfiguregallery query --task "Nature-style embedding map for cell atlas"
 agentfiguregallery gallery --plot-type embedding_plot --limit 100 --serve
 ```
 
+## Extend Your Gallery
+
+AgentFigureGallery is designed to grow after install. You can ask an agent to follow the expansion contract, or add a small local reference pack yourself, then use the browser gallery to fold the new material into your taste memory.
+
+Tell your coding agent:
+
+```text
+Read ExtendAgent/README.md, then expand AgentFigureGallery for <plot type or style>. Discover high-quality public scientific plotting sources, render every useful reference as a visible preview, preserve stable candidate IDs and source license metadata, rebuild the candidate index, and report candidate counts plus private-path scan results.
+```
+
+For manual expansion, use the same contract:
+
+1. Add only references that have a visible preview PNG; screenshots or scripts without previews cannot enter the human selection loop.
+2. Give every reference a stable `candidate_id`, `plot_type`, preview path, source repository or file metadata, and license/source attribution when available.
+3. Keep large preview packs and raw upstream repositories out of Git; publish or store them as packs and update the manifest when they should be shared.
+4. Preserve existing preference memory in `data/reference_global_preferences.json` and `outputs/reference_sessions/**/preferences.json`.
+5. Refresh the candidate index, run `agentfiguregallery doctor`, then launch `agentfiguregallery gallery --plot-type <plot_type> --limit 50 --serve` to inspect and refine the new candidates.
+
+See `ExtendAgent/README.md` for the maintainer-oriented expansion rules and quality gates.
+
 ## What Is Inside
 
 - 16,341 full-public visual candidates across 10 scientific plot types.
+- Routine browser-gallery feedback that adapts the skill to personal or lab-specific figure preferences.
 - Glike-curated minimal pack committed for instant smoke tests.
 - Codex-equipped plot-type smoke examples with PNG/PDF/SVG outputs.
 - Backend CLI, browser gallery, Codex skill wrapper, and agent expansion guide.
