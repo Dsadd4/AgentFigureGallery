@@ -92,6 +92,22 @@ def build_parser() -> argparse.ArgumentParser:
     gallery.add_argument("--host", default="127.0.0.1")
     gallery.add_argument("--port", type=int, default=8765)
 
+    first_run = subparsers.add_parser(
+        "first-run",
+        help="Create a starter reference session and optionally open the gallery.",
+    )
+    first_run.add_argument("--plot-type", default="embedding_plot")
+    first_run.add_argument("--task", default="Nature-style embedding map for cell atlas")
+    first_run.add_argument("--limit", type=int, default=36)
+    first_run.add_argument("--session-id", default="")
+    first_run.add_argument("--strategy", choices=["top", "explore", "random"], default="explore")
+    first_run.add_argument("--seed", type=int, default=7)
+    first_run.add_argument("--host", default="127.0.0.1")
+    first_run.add_argument("--port", type=int, default=8765)
+    first_run.add_argument("--open", action="store_true", help="Open the gallery in the default browser and serve it.")
+    first_run.add_argument("--serve", action="store_true", help="Serve the gallery without opening a browser.")
+    first_run.add_argument("--json", action="store_true")
+
     serve = subparsers.add_parser("serve", help="Serve the local gallery UI.")
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8765)
@@ -452,6 +468,56 @@ def command_gallery(args: argparse.Namespace) -> int:
     return 0
 
 
+def command_first_run(args: argparse.Namespace) -> int:
+    kb_root = root()
+    session = generate_session(
+        root=kb_root,
+        plot_type=args.plot_type,
+        task=args.task,
+        limit=args.limit,
+        session_id=args.session_id or "",
+        strategy=args.strategy,
+        seed=args.seed,
+    )
+    url_host = "127.0.0.1" if args.host in {"0.0.0.0", "::"} else args.host
+    url = f"http://{url_host}:{args.port}/"
+    if args.open or args.serve:
+        first_step = f"Open the running gallery at {url}."
+    else:
+        first_step = f"Run: agentfiguregallery serve --host {args.host} --port {args.port}"
+    next_steps = [
+        first_step,
+        "Like, reject, or select examples that match the figure style you want.",
+        f"Run: agentfiguregallery bundle --session {session['session_id']}",
+    ]
+    payload = {
+        "session": session["session_id"],
+        "candidates": len(session.get("candidates", [])),
+        "session_json": session["paths"]["session_json"],
+        "gallery_url": url,
+        "next_steps": next_steps,
+    }
+    if args.json:
+        print(json.dumps(payload, indent=2, ensure_ascii=True))
+    else:
+        print(f"session: {payload['session']}")
+        print(f"candidates: {payload['candidates']}")
+        print(f"session_json: {payload['session_json']}")
+        print(f"gallery_url: {payload['gallery_url']}")
+        print("next:")
+        for step in next_steps:
+            print(f"- {step}")
+    if args.open:
+        import threading
+        import webbrowser
+
+        threading.Timer(0.5, lambda: webbrowser.open(url)).start()
+    if args.open or args.serve:
+        print("Serving gallery; press Ctrl-C to stop.", flush=True)
+        return run_server(root=kb_root, host=args.host, port=args.port)
+    return 0
+
+
 def command_assets(args: argparse.Namespace) -> int:
     if args.assets_command != "download":
         raise SystemExit(f"Unsupported assets command: {args.assets_command}")
@@ -538,6 +604,8 @@ def main() -> int:
         return command_query(args)
     if args.command == "gallery":
         return command_gallery(args)
+    if args.command == "first-run":
+        return command_first_run(args)
     if args.command == "serve":
         return run_server(root=root(), host=args.host, port=args.port)
     if args.command == "prefer":

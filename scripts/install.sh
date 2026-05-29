@@ -128,5 +128,5 @@ Tell your agent:
   Read the agent-figure-gallery skill, then use AgentFigureGallery before writing publication figure code.
 
 Try:
-  $VENV_CLI gallery --plot-type embedding_plot --limit 50 --serve
+  $VENV_CLI first-run --open
 EOF

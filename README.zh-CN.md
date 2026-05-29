@@ -37,6 +37,17 @@ agent query -> browser gallery -> human like/reject/select -> reference bundle -
 
 ![AgentFigureGallery 各图形类型候选数量](docs/assets/agentfiguregallery-scale-overview.png)
 
+## 快速入口
+
+| 目标 | 命令或链接 |
+| --- | --- |
+| 安装后完成第一次本地运行 | `~/AgentFigureGallery/.venv/bin/agentfiguregallery first-run --open` |
+| 一键安装 Codex 技能 | <code>curl -fsSL https://raw.githubusercontent.com/Dsadd4/AgentFigureGallery/main/scripts/install.sh &#124; bash</code> |
+| 通过 Awesome Skills 安装 | `npx add-skill Dsadd4/AgentFigureGallery` |
+| 安装前先看脚本会做什么 | [安装可信说明](docs/TRUST_AND_INSTALL.md) |
+| 打开 Hugging Face 展示页 | [AgentFigureGallery Space](https://huggingface.co/spaces/dsadd4/AgentFigureGallery) |
+| 贡献参考图包 | [Community Packs](docs/COMMUNITY_PACKS.md) |
+
 ## 手动安装
 
 ```bash

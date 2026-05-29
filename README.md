@@ -35,6 +35,17 @@ Before generating plotting code, the agent queries visual references, the user s
 
 ![AgentFigureGallery candidate counts by plot type](docs/assets/agentfiguregallery-scale-overview.png)
 
+## Quick Paths
+
+| Goal | Command or link |
+| --- | --- |
+| First successful local run after install | `~/AgentFigureGallery/.venv/bin/agentfiguregallery first-run --open` |
+| Bootstrap the Codex skill | <code>curl -fsSL https://raw.githubusercontent.com/Dsadd4/AgentFigureGallery/main/scripts/install.sh &#124; bash</code> |
+| Install through Awesome Skills | `npx add-skill Dsadd4/AgentFigureGallery` |
+| Review install behavior first | [Trust and Install Notes](docs/TRUST_AND_INSTALL.md) |
+| Open the Hugging Face showcase | [AgentFigureGallery Space](https://huggingface.co/spaces/dsadd4/AgentFigureGallery) |
+| Contribute a reference pack | [Community Packs](docs/COMMUNITY_PACKS.md) |
+
 ## Manual Install
 
 ```bash

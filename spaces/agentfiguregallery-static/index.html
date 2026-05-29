@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="AgentFigureGallery is a visual reference gallery and human preference loop for scientific plotting agents."
+    />
+    <title>AgentFigureGallery</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="brand" href="https://github.com/Dsadd4/AgentFigureGallery" target="_blank" rel="noreferrer">
+        AgentFigureGallery
+      </a>
+      <nav class="nav-links">
+        <a href="https://github.com/Dsadd4/AgentFigureGallery" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://huggingface.co/datasets/dsadd4/AgentFigureGallery" target="_blank" rel="noreferrer">Dataset</a>
+        <a href="https://www.awesomeskills.dev/en/skill/dsadd4-agentfiguregallery" target="_blank" rel="noreferrer">
+          Awesome Skills
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Visual taste memory for plotting agents</p>
+          <h1><span>AgentFigure</span><span class="title-tail">Gallery</span></h1>
+          <p class="hero-text">
+            Search real scientific figure references, choose the examples you prefer, and export a bundle that guides Codex or Claude Code before it writes plotting code.
+          </p>
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="button primary" href="https://github.com/Dsadd4/AgentFigureGallery" target="_blank" rel="noreferrer">View on GitHub</a>
+            <a class="button secondary" href="https://huggingface.co/datasets/dsadd4/AgentFigureGallery" target="_blank" rel="noreferrer">Open dataset</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="metrics" aria-label="Project scale">
+        <div>
+          <strong>16k+</strong>
+          <span>public references</span>
+        </div>
+        <div>
+          <strong>10</strong>
+          <span>plot types</span>
+        </div>
+        <div>
+          <strong>3 min</strong>
+          <span>first local run</span>
+        </div>
+        <div>
+          <strong>1 loop</strong>
+          <span>query, select, bundle</span>
+        </div>
+      </section>
+
+      <section class="showcase">
+        <div class="section-copy">
+          <p class="eyebrow">Workflow</p>
+          <h2>Pick references before plotting</h2>
+          <p>
+            The local gallery puts human preference before code generation: query candidates, mark preferred examples, then pass a compact reference bundle to the agent.
+          </p>
+        </div>
+        <figure class="media-frame">
+          <img src="assets/agentfiguregallery-demo.gif" alt="AgentFigureGallery local gallery workflow demo" />
+        </figure>
+      </section>
+
+      <section class="scale-section">
+        <div class="section-copy">
+          <p class="eyebrow">Coverage</p>
+          <h2>Reference pool scale</h2>
+          <p>
+            The public pack covers common scientific plots used in bioinformatics, benchmarking, spatial analysis, microscopy, and multi-panel paper figures.
+          </p>
+        </div>
+        <figure class="chart-frame">
+          <img src="assets/agentfiguregallery-scale-overview.png" alt="AgentFigureGallery candidate counts by plot type" />
+        </figure>
+      </section>
+
+      <section class="examples" aria-label="Example scientific plots">
+        <div class="section-copy">
+          <p class="eyebrow">Examples</p>
+          <h2>Plot styles the gallery can guide</h2>
+        </div>
+        <div class="example-grid">
+          <article>
+            <img src="assets/examples/embedding_plot_example.png" alt="Embedding plot example" />
+            <h3>Embedding maps</h3>
+          </article>
+          <article>
+            <img src="assets/examples/heatmap_matrix_example.png" alt="Heatmap matrix example" />
+            <h3>Heatmaps</h3>
+          </article>
+          <article>
+            <img src="assets/examples/bar_chart_example.png" alt="Bar chart example" />
+            <h3>Bar charts</h3>
+          </article>
+          <article>
+            <img src="assets/examples/multi_panel_figure_example.png" alt="Multi-panel figure example" />
+            <h3>Multi-panel figures</h3>
+          </article>
+        </div>
+      </section>
+
+      <section class="install">
+        <div class="section-copy">
+          <p class="eyebrow">First run</p>
+          <h2>Install, open, select</h2>
+          <p>
+            The bootstrap installs the CLI and Codex skill wrapper. The first-run command creates a starter session and opens the local gallery.
+          </p>
+        </div>
+        <div class="command-panel" aria-label="Install commands">
+          <pre><code>curl -fsSL https://raw.githubusercontent.com/Dsadd4/AgentFigureGallery/main/scripts/install.sh | bash</code></pre>
+          <pre><code>~/AgentFigureGallery/.venv/bin/agentfiguregallery first-run --open</code></pre>
+          <pre><code>npx add-skill Dsadd4/AgentFigureGallery</code></pre>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

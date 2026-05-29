@@ -18,6 +18,12 @@ One-command bootstrap:
 curl -fsSL https://raw.githubusercontent.com/Dsadd4/AgentFigureGallery/main/scripts/install.sh | bash
 ```
 
+First successful local run:
+
+```bash
+~/AgentFigureGallery/.venv/bin/agentfiguregallery first-run --open
+```
+
 Manual flow:
 
 ```bash

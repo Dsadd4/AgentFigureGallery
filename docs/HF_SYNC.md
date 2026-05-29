@@ -33,3 +33,25 @@ agentfiguregallery setup --pack full-public --manifest-url https://huggingface.c
 ```
 
 Keep `docs/HF_DATASET_CARD.md` as the source of truth for the remote dataset README.
+
+## Static Space Showcase
+
+`spaces/agentfiguregallery-static` is the deployable no-install preview Space.
+
+Live Space: https://huggingface.co/spaces/dsadd4/AgentFigureGallery
+
+Local preview:
+
+```bash
+cd spaces/agentfiguregallery-static
+python -m http.server 8899
+```
+
+Deploy:
+
+```bash
+hf repos create dsadd4/AgentFigureGallery --type space --space-sdk static --exist-ok
+hf upload dsadd4/AgentFigureGallery spaces/agentfiguregallery-static --type space --commit-message "Update static AgentFigureGallery showcase"
+```
+
+Use `docs/HF_SPACE.md` as the deployment checklist.
