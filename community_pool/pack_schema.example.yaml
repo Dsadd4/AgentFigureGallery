@@ -1,0 +1,32 @@
+schema_version: agentfiguregallery.community_pack.v1
+pack:
+  name: example-lab-pack
+  title: Example Lab Scientific Plotting References
+  description: Small public reference pack for one lab or domain-specific plotting style.
+  maintainer:
+    name: Example Maintainer
+    contact: https://github.com/example
+  visibility: public
+  license_summary: MIT-compatible source code; CC-BY compatible previews where applicable.
+  source_policy: Public sources only. No private paths, tokens, or unpublished data.
+  primary_plot_types:
+    - bar_chart
+    - embedding_plot
+  tags:
+    - nature-style
+    - lab-curated
+  candidates:
+    - candidates/BAR-EXAMPLE-0001/metadata.json
+    - candidates/EMB-EXAMPLE-0001/metadata.json
+asset_policy:
+  git_intent: metadata, small previews, render scripts, and tiny source data only
+  large_assets: publish as release assets or external manifest entries
+  raw_upstream_repos: do not commit
+validation:
+  required_commands:
+    - agentfiguregallery doctor
+    - python scripts/check_private_paths.py --root .
+release:
+  target_channel: community
+  suggested_pack_name: community-example-lab
+  notes: Maintainers may fold this into a dated community asset release.

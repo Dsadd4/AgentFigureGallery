@@ -10,8 +10,8 @@ Describe the change and how it improves the agent query -> gallery display -> hu
 - [ ] Stable candidate IDs are preserved.
 - [ ] Source attribution and license metadata are preserved where available.
 - [ ] No tokens, private paths, raw upstream mirrors, or large generated outputs are committed.
+- [ ] Community pack changes, if any, follow `docs/COMMUNITY_PACKS.md`.
 
 ## Validation
 
 Paste the commands and key output used to validate this change.
-

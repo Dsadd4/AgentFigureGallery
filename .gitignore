@@ -25,9 +25,18 @@ assets/packs/public-preview/
 assets/packs/source-scripts/
 assets/packs/full-public/
 assets/packs/full-corpus/
+assets/packs/community*/
 assets/packs/**/*.part
 assets/releases/
 repos/
+
+# Community contribution staging should stay lightweight.
+community_pool/packs/**/raw/
+community_pool/packs/**/downloads/
+community_pool/packs/**/*.part
+community_pool/packs/**/*.tar
+community_pool/packs/**/*.tar.gz
+community_pool/packs/**/*.zip
 
 # Large generated preview/cache files should be shipped as release assets.
 data/reference_candidate_index.full.json

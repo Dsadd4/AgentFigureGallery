@@ -1,0 +1,57 @@
+name: Community Pack
+description: Propose or preflight a community reference pack contribution.
+title: "[Community Pack]: "
+labels: ["community-pack", "gallery-expansion"]
+body:
+  - type: input
+    id: pack_name
+    attributes:
+      label: Pack name
+      description: Use a stable lowercase name such as community-bio-spatial or lab-name-heatmaps.
+      placeholder: community-example-pack
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Pack scope
+      description: Describe the domain, plot types, and visual style this pack will add.
+      placeholder: |
+        Domain:
+        Plot types:
+        Style:
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources and licenses
+      description: Link public repositories, papers, datasets, or galleries and note their licenses.
+      placeholder: |
+        - https://github.com/... (MIT)
+        - https://doi.org/... (figure/code license notes)
+    validations:
+      required: true
+  - type: checkboxes
+    id: gates
+    attributes:
+      label: Contribution gates
+      options:
+        - label: Every accepted candidate will have a visible preview PNG.
+          required: true
+        - label: Every accepted candidate will have a stable candidate_id and plot_type.
+          required: true
+        - label: Source attribution and license metadata will be preserved.
+          required: true
+        - label: No private paths, tokens, private repositories, or unpublished data will be included.
+          required: true
+        - label: Large assets will be distributed as release assets or manifest entries, not committed to Git.
+          required: true
+  - type: textarea
+    id: release_plan
+    attributes:
+      label: Release and install plan
+      description: If known, describe whether this should become community-latest, a dated release, or a domain-specific pack.
+      placeholder: community-2026-05 or community-bio-2026-q2
+    validations:
+      required: false

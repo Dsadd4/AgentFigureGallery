@@ -1,0 +1,33 @@
+{
+  "schema_version": "agentfiguregallery.community_candidate.v1",
+  "candidate_id": "BAR-EXAMPLE-0001",
+  "plot_type": "bar_chart",
+  "title": "Grouped response bar chart with compact statistical annotation",
+  "preview_path": "candidates/BAR-EXAMPLE-0001/preview.png",
+  "source_code_path": "candidates/BAR-EXAMPLE-0001/render.py",
+  "source_data_path": "candidates/BAR-EXAMPLE-0001/source_data.csv",
+  "render_command": "python candidates/BAR-EXAMPLE-0001/render.py",
+  "visual_only": false,
+  "source": {
+    "type": "github_repository",
+    "url": "https://github.com/example/public-plotting-repo",
+    "commit": "optional-public-commit-sha",
+    "paper_url": "https://doi.org/10.0000/example",
+    "authors": ["Example Author"],
+    "license": "MIT"
+  },
+  "style_tags": [
+    "nature-style",
+    "compact-axis",
+    "statistical-annotation"
+  ],
+  "plot_libraries": [
+    "matplotlib",
+    "seaborn"
+  ],
+  "quality_notes": "Visible preview, reproducible script, small public source data, and explicit license metadata.",
+  "private_path_scan": {
+    "checked": true,
+    "result": "pass"
+  }
+}

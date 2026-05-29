@@ -1,0 +1,33 @@
+{
+  "version": "community-example",
+  "packs": [
+    {
+      "name": "community-latest",
+      "description": "Latest accepted AgentFigureGallery community asset pack.",
+      "entries": [
+        {
+          "path": "assets/packs/community-latest/community-latest.tar.gz",
+          "url": "TODO_PUBLIC_URL/community-latest/community-latest.tar.gz",
+          "sha256": "",
+          "size_bytes": 0,
+          "description": "Community pack archive built from accepted community_pool contributions.",
+          "unpack": true
+        }
+      ]
+    },
+    {
+      "name": "community-bio-2026-q2",
+      "description": "Example domain-specific community pack for biological scientific figures.",
+      "entries": [
+        {
+          "path": "assets/packs/community-bio-2026-q2/community-bio-2026-q2.tar.gz",
+          "url": "TODO_PUBLIC_URL/community-bio-2026-q2/community-bio-2026-q2.tar.gz",
+          "sha256": "",
+          "size_bytes": 0,
+          "description": "Example biological community pack archive.",
+          "unpack": true
+        }
+      ]
+    }
+  ]
+}
