@@ -25,6 +25,7 @@ One-command bootstrap plus Codex, Claude Code, and Cursor rule install.
 Global and plot-type preference memory.
 
 GitHub: https://github.com/Dsadd4/AgentFigureGallery
+Space: https://huggingface.co/spaces/dsadd4/AgentFigureGallery
 ```
 
 ## First Channels
@@ -57,9 +58,15 @@ GitHub: https://github.com/Dsadd4/AgentFigureGallery
 ## Launch Checklist
 
 - README shows the GIF above installation.
-- README makes the `curl ... install.sh | bash` bootstrap visible above the GIF, with Claude Code and Cursor rule commands nearby.
+- README makes the `curl ... install.sh | bash` bootstrap and `first-run --open` path visible above detailed setup.
 - `agentfiguregallery doctor` passes after install.
+- `agentfiguregallery first-run --open` creates a starter session and opens the local gallery.
+- Hugging Face Space is live and linked from the README.
 - Hugging Face dataset card is synced.
 - GitHub Actions is green.
 - One end-to-end example is linked from the README.
 - Issue templates and PR template are available for contributors.
+
+## Expansion Notes
+
+- [P0 onboarding and Hugging Face Space retro](P0_ONBOARDING_RETRO.md)
