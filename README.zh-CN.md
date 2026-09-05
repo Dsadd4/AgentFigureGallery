@@ -8,8 +8,9 @@
 [![Full KB](https://img.shields.io/badge/full--public-16k%2B%20references-0f766e.svg)](docs/REMOTE_FULL_VALIDATION.md)
 [![Hugging Face Dataset](https://img.shields.io/badge/Hugging%20Face-dataset-ffcc00.svg)](https://huggingface.co/datasets/dsadd4/AgentFigureGallery)
 
-AgentFigureGallery 是面向 Claude Code、Codex、Cursor 等代码智能体（coding agent）的科学绘图参考图库。
-它让智能体先检索真实参考图，让用户在浏览器图库里标记喜欢、不喜欢或选中，再把这些选择导出成参考包，供智能体编写绘图代码。
+**AgentFigureGallery 以 Nature 及其子刊的精美科研图表为主要参考，汇集相关优质开源项目的绘图代码，为你和你的 AI 智能体提供科研绘图的视觉模板与代码参考。**
+
+完整公开参考池收录 **16,341 个视觉候选，覆盖 10 类常见科研图形**（见[规模统计](docs/REMOTE_FULL_VALIDATION.md#candidate-counts)）。你可以从中挑选喜欢的配色、布局和表达方式，让 Codex、Claude Code、Cursor 等代码智能体结合可用的源码，将这些参考应用到自己的数据与绘图任务中。
 
 > 本页是简体中文用户入口；英文 [README.md](README.md) 是默认 GitHub 文档。命令、路径、issue 链接和代码块应与英文版保持一致；贡献和维护者文档暂以英文为准。
 
