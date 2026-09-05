@@ -8,8 +8,9 @@
 [![Full KB](https://img.shields.io/badge/full--public-16k%2B%20references-0f766e.svg)](docs/REMOTE_FULL_VALIDATION.md)
 [![Hugging Face Dataset](https://img.shields.io/badge/Hugging%20Face-dataset-ffcc00.svg)](https://huggingface.co/datasets/dsadd4/AgentFigureGallery)
 
-AgentFigureGallery is a scientific plotting reference gallery for Claude Code, Codex, Cursor, and other coding agents.
-It lets an agent search real figure references, lets you mark examples as liked, rejected, or selected in a browser gallery, and exports those choices as a reference bundle for plotting code.
+**AgentFigureGallery brings together beautiful scientific figures primarily from Nature and its sister journals, complemented by plotting code from high-quality open-source projects, to serve as visual templates and code references for you and your AI coding agent.**
+
+The full public reference pool contains **16,341 visual candidates across 10 common scientific plot types** (see [collection statistics](docs/REMOTE_FULL_VALIDATION.md#candidate-counts)). Choose the colors, layouts, and presentation styles you like, then let Codex, Claude Code, Cursor, or another coding agent use those references and available source code to build figures for your own data.
 
 **Quick install for Codex:**
 
